@@ -14,7 +14,7 @@ return [
     'general' => [
         'base_url' => 'http://localhost:63000',
         'language' => 'de',
-        'assets_url' => '/phpagebuilder/dist',
+        'assets_url' => '/plugi/dist',
         'uploads_url' => '/uploads'
     ],
 
@@ -31,9 +31,9 @@ return [
         'database' => [
             'driver'    => 'mysql',
             'host'      => 'mysql',
-            'database'  => 'phpagebuilder',
-            'username'  => 'phpagebuilder',
-            'password'  => 'phpagebuilder',
+            'database'  => 'plugi',
+            'username'  => 'plugi',
+            'password'  => 'plugi',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
@@ -52,7 +52,7 @@ return [
      */
     'auth' => [
         'use_login' => true,
-        'class' => PHPageBuilder\Modules\Auth\Auth::class,
+        'class' => Plugi\Modules\Auth\Auth::class,
         'url' => '/admin/auth',
         'username' => 'admin',
         'password' => 'admin'
@@ -68,7 +68,7 @@ return [
      */
     'website_manager' => [
         'use_website_manager' => true,
-        'class' => PHPageBuilder\Modules\WebsiteManager\WebsiteManager::class,
+        'class' => Plugi\Modules\WebsiteManager\WebsiteManager::class,
         'url' => '/admin'
     ],
 
@@ -81,7 +81,7 @@ return [
      |
      */
     'setting' => [
-        'class' => PHPageBuilder\Setting::class
+        'class' => Plugi\Setting::class
     ],
 
     /*
@@ -93,7 +93,7 @@ return [
      |
      */
     'pagebuilder' => [
-        'class' => PHPageBuilder\Modules\GrapesJS\PageBuilder::class,
+        'class' => Plugi\Modules\GrapesJS\PageBuilder::class,
         'url' => '/admin/pagebuilder',
         'actions' => [
             'back' => '/admin'
@@ -109,10 +109,10 @@ return [
      |
      */
     'page' => [
-        'class' => PHPageBuilder\Page::class,
+        'class' => Plugi\Page::class,
         'table' => 'pages',
         'translation' => [
-            'class' => PHPageBuilder\PageTranslation::class,
+            'class' => Plugi\PageTranslation::class,
             'table' => 'page_translations',
             'foreign_key' => 'page_id',
         ]
@@ -132,7 +132,7 @@ return [
     'cache' => [
         'enabled' => false,
         'folder' => __DIR__ . '/cache',
-        'class' => PHPageBuilder\Cache::class
+        'class' => Plugi\Cache::class
     ],
 
     /*
@@ -146,7 +146,7 @@ return [
      |
      */
     'theme' => [
-        'class' => PHPageBuilder\Theme::class,
+        'class' => Plugi\Theme::class,
         'folder' => __DIR__ . '/themes',
         'folder_url' => '/themes',
         'active_theme' => 'phpb-demo-template'
@@ -161,7 +161,7 @@ return [
      |
      */
     'router' => [
-        'class' => PHPageBuilder\Modules\Router\DatabasePageRouter::class
+        'class' => Plugi\Modules\Router\DatabasePageRouter::class
     ],
 
     /*
@@ -171,7 +171,7 @@ return [
      |
      | Allows mapping a class namespace to an alternative namespace,
      | useful for replacing implementations of specific pagebuilder classes.
-     | Example: PHPageBuilder\UploadedFile::class => Alternative\UploadedFile::class
+     | Example: Plugi\UploadedFile::class => Alternative\UploadedFile::class
      | Important: when overriding a class always extend the original class.
      |
      */
