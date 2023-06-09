@@ -149,7 +149,7 @@ return [
         'class' => Plugi\Theme::class,
         'folder' => __DIR__ . '/themes',
         'folder_url' => '/themes',
-        'active_theme' => 'phpb-demo-template'
+        'active_theme' => 'demo'
     ],
 
     /*
