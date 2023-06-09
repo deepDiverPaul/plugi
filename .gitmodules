@@ -1,0 +1,3 @@
+[submodule "plugi"]
+	path = plugi
+	url = git@github.com:deepDiverPaul/plugi-core.git
