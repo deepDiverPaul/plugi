@@ -9,7 +9,7 @@ return [
         'invalid-credentials' => 'Usuario o contraseña Inválidos',
     ],
     'website-manager' => [
-        'title' => 'Webuilder Manager',
+        'title' => 'Plugi Page Builder',
         'logout' => 'Salir',
         'pages' => 'Páginas',
         'menus' => 'Menús',
@@ -35,6 +35,7 @@ return [
 
         'files' => 'Files',
         'settings' => 'Ajustes',
+        'info' => 'Info',
         'required' => 'Required',
         'website-languages' => 'Idiomas del sitio',
         'languages-selector-placeholder' => 'Selecciona uno o más idiomas',

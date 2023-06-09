@@ -9,7 +9,7 @@ return [
         'invalid-credentials' => 'Falsche Zugangsdaten',
     ],
     'website-manager' => [
-        'title' => 'Website Manager',
+        'title' => 'Plugi Page Builder',
         'logout' => 'Logout',
         'pages' => 'Seiten',
         'menus' => 'Menus',
@@ -35,6 +35,7 @@ return [
 
         'files' => 'Dateien',
         'settings' => 'Einstellungen',
+        'info' => 'Info',
         'required' => 'Pflichtfeld',
         'website-languages' => 'Website Sprachen',
         'languages-selector-placeholder' => 'Wähle eine oder mehr Sprachen aus',

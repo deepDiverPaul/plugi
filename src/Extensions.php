@@ -74,6 +74,7 @@ class Extensions
      * @return void
      */
     public static function registerBackend(string $slug, array $backend) {
+        $backend['icon'] = $backend['icon'] ?: '<i class="ph ph-circles-three-plus"></i>';
         self::$backends['ext--'.$slug] = $backend;
     }
 

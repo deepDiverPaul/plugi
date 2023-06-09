@@ -9,7 +9,7 @@ return [
         'invalid-credentials' => 'Ingevulde logingegevens zijn onjuist',
     ],
     'website-manager' => [
-        'title' => 'Websitebeheer',
+        'title' => 'Plugi Page Builder',
         'logout' => 'Uitloggen',
         'pages' => 'Pagina\'s',
         'menus' => 'Menus',
@@ -35,6 +35,7 @@ return [
 
         'files' => 'Files',
         'settings' => 'Instellingen',
+        'info' => 'Info',
         'required' => 'Required',
         'website-languages' => 'Website talen',
         'languages-selector-placeholder' => 'Selecteer één of meerdere talen',

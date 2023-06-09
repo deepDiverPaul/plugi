@@ -1,4 +1,4 @@
-<div class="main-spacing">
+
     <?php
     if (phpb_flash('message')):
         ?>
@@ -9,8 +9,7 @@
     endif;
     ?>
 
-    <div class="table-responsive">
-        <table class="table table-zebra">
+        <table class="table table-zebra w-full">
             <thead>
             <tr>
                 <th class="w-5">ID</th>
@@ -57,8 +56,7 @@
             ?>
             </tbody>
         </table>
-    </div>
-</div>
+
 
 <div class="text-center mt-8">
     <a href="<?= phpb_url('website_manager', ['route' => 'page_settings', 'action' => 'create']) ?>" class="btn btn-primary btn-sm">

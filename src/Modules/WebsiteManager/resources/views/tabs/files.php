@@ -2,7 +2,7 @@
     <input type="file" id="fileupload" class="file-input file-input-bordered file-input-sm file-input-primary w-full max-w-md" name="fileupload" onchange="uploadFile()" onselect="uploadFile()" />
 </div>
 
-<div class="flex flex-wrap gap-4">
+<div class="flex flex-wrap justify-center gap-4">
 <?php
 foreach ($files as $file) :
 ?>
@@ -16,6 +16,15 @@ foreach ($files as $file) :
     </div>
 <?php
 endforeach;
+?>
+<?php
+if (count($files) === 0) :
+?>
+    <div class="relative">
+        No files...
+    </div>
+<?php
+endif;
 ?>
 </div>
 
