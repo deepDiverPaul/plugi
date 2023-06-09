@@ -1,0 +1,32 @@
+services:
+  web:
+    build: .
+    restart: 'always'
+    volumes:
+      - '.:/var/www/html'
+    depends_on:
+      - mysql
+    ports:
+      - '63000:80'
+    links:
+      - mysql
+    networks:
+      - backend
+  mysql:
+    image: "mysql:8.0"
+    restart: 'always'
+    volumes:
+      - '.:/application'
+      - './docker/db:/var/lib/mysql:cached'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=phpagebuilder
+      - MYSQL_USER=phpagebuilder
+      - MYSQL_PASSWORD=phpagebuilder
+    ports:
+      - '63002:3306'
+    networks:
+      - backend
+
+networks:
+  backend:
