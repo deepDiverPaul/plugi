@@ -17,7 +17,7 @@ services:
     restart: 'always'
     volumes:
       - '.:/application'
-      - './docker/db:/var/lib/mysql:cached'
+      - db:/var/lib/mysql:cached
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=phpagebuilder
@@ -30,3 +30,6 @@ services:
 
 networks:
   backend:
+
+volumes:
+  db:
