@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS\Block;
+namespace Plugi\Modules\GrapesJS\Block;
 
-use PHPageBuilder\Contracts\PageContract;
-use PHPageBuilder\ThemeBlock;
+use Plugi\Contracts\PageContract;
+use Plugi\ThemeBlock;
 
 class BaseModel
 {

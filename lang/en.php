@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Website Manager',
+        'title' => 'Plugi Page Builder',
         'username' => 'Username',
         'password' => 'Password',
         'login-button' => 'Login',

@@ -1,24 +1,28 @@
 {
-    "name": "hansschouten/phpagebuilder",
+    "name": "deepDiverPaul/plugi-core",
     "description": "A drag and drop pagebuilder to manage pages in any PHP project.",
     "keywords": [
         "pagebuilder"
     ],
-    "homepage": "https://github.com/HansSchouten/PHPagebuilder",
+    "homepage": "https://github.com/deepDiverPaul/plugi-core",
     "type": "library",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Paul Spenke",
+            "email": "info@onlineer.de"
+        },
         {
             "name": "Hans Schouten",
             "email": "hans@falcosolutions.nl"
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=8.2"
     },
     "autoload": {
         "psr-4": {
-            "PHPageBuilder\\": "src/"
+            "Plugi\\": "src/"
         },
         "files": [
             "src/Core/helpers.php"

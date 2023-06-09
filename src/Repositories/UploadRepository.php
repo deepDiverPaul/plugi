@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder\Repositories;
+namespace Plugi\Repositories;
 
-use PHPageBuilder\UploadedFile;
+use Plugi\UploadedFile;
 
 class UploadRepository extends BaseRepository
 {

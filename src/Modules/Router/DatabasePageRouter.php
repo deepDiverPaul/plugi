@@ -1,12 +1,12 @@
 <?php
 
-namespace PHPageBuilder\Modules\Router;
+namespace Plugi\Modules\Router;
 
-use PHPageBuilder\Contracts\PageContract;
-use PHPageBuilder\Contracts\PageTranslationContract;
-use PHPageBuilder\Contracts\RouterContract;
-use PHPageBuilder\Repositories\PageRepository;
-use PHPageBuilder\Repositories\PageTranslationRepository;
+use Plugi\Contracts\PageContract;
+use Plugi\Contracts\PageTranslationContract;
+use Plugi\Contracts\RouterContract;
+use Plugi\Repositories\PageRepository;
+use Plugi\Repositories\PageTranslationRepository;
 
 class DatabasePageRouter implements RouterContract
 {

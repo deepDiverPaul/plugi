@@ -1,15 +1,15 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS;
+namespace Plugi\Modules\GrapesJS;
 
-use PHPageBuilder\Contracts\PageBuilderContract;
-use PHPageBuilder\Contracts\PageContract;
-use PHPageBuilder\Contracts\ThemeContract;
-use PHPageBuilder\Modules\GrapesJS\Block\BlockAdapter;
-use PHPageBuilder\Modules\GrapesJS\Thumb\ThumbGenerator;
-use PHPageBuilder\Modules\GrapesJS\Upload\Uploader;
-use PHPageBuilder\Repositories\PageRepository;
-use PHPageBuilder\Repositories\UploadRepository;
+use Plugi\Contracts\PageBuilderContract;
+use Plugi\Contracts\PageContract;
+use Plugi\Contracts\ThemeContract;
+use Plugi\Modules\GrapesJS\Block\BlockAdapter;
+use Plugi\Modules\GrapesJS\Thumb\ThumbGenerator;
+use Plugi\Modules\GrapesJS\Upload\Uploader;
+use Plugi\Repositories\PageRepository;
+use Plugi\Repositories\UploadRepository;
 use Exception;
 
 class PageBuilder implements PageBuilderContract
@@ -204,8 +204,8 @@ class PageBuilder implements PageBuilderContract
         // init variables that should be accessible in the view
         $pageBuilder = $this;
         $pageRenderer = phpb_instance(PageRenderer::class, [$this->theme, $page, true]);
-        if (! empty($_SESSION['phpagebuilder_language'])) {
-            $pageRenderer->setLanguage($_SESSION['phpagebuilder_language']);
+        if (! empty($_SESSION['plugi_language'])) {
+            $pageRenderer->setLanguage($_SESSION['plugi_language']);
         }
 
         // create an array of theme blocks and theme block settings for in the page builder sidebar
@@ -279,7 +279,7 @@ class PageBuilder implements PageBuilderContract
     public function renderLanguageVariant(PageContract $page, string $language, $blockData = [])
     {
         phpb_set_in_editmode();
-        $_SESSION['phpagebuilder_language'] = $language;
+        $_SESSION['plugi_language'] = $language;
 
         $blockData = is_array($blockData) ? $blockData : [];
         $page->setData(['data' => $blockData], false);

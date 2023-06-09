@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder;
+namespace Plugi;
 
-use PHPageBuilder\Contracts\CacheContract;
+use Plugi\Contracts\CacheContract;
 
 class Cache implements CacheContract
 {

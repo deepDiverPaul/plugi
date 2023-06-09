@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder\Repositories;
+namespace Plugi\Repositories;
 
-use PHPageBuilder\Contracts\MenuRepositoryContract;
+use Plugi\Contracts\MenuRepositoryContract;
 
 class MenuRepository extends BaseRepository implements MenuRepositoryContract
 {

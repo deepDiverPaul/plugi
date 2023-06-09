@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS;
+namespace Plugi\Modules\GrapesJS;
 
-use PHPageBuilder\Repositories\PageRepository;
+use Plugi\Repositories\PageRepository;
 use Exception;
 
 class ShortcodeParser

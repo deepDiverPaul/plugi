@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS\Block;
+namespace Plugi\Modules\GrapesJS\Block;
 
-use PHPageBuilder\Modules\GrapesJS\PageRenderer;
-use PHPageBuilder\ThemeBlock;
+use Plugi\Modules\GrapesJS\PageRenderer;
+use Plugi\ThemeBlock;
 use Exception;
 
 /**
@@ -11,7 +11,7 @@ use Exception;
  *
  * Class for adapting a ThemeBlock into a JSON object understood by the GrapesJS page builder.
  *
- * @package PHPageBuilder\GrapesJS
+ * @package Plugi\GrapesJS
  */
 class BlockAdapter
 {

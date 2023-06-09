@@ -1,13 +1,13 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS;
+namespace Plugi\Modules\GrapesJS;
 
-use PHPageBuilder\Contracts\PageContract;
-use PHPageBuilder\Contracts\ThemeContract;
-use PHPageBuilder\Modules\GrapesJS\Block\BlockRenderer;
-use PHPageBuilder\ThemeBlock;
+use Plugi\Contracts\PageContract;
+use Plugi\Contracts\ThemeContract;
+use Plugi\Modules\GrapesJS\Block\BlockRenderer;
+use Plugi\ThemeBlock;
 use Exception;
-use PHPageBuilder\Extensions;
+use Plugi\Extensions;
 
 class PageRenderer
 {

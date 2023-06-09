@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS\Block;
+namespace Plugi\Modules\GrapesJS\Block;
 
-use PHPageBuilder\Contracts\PageContract;
+use Plugi\Contracts\PageContract;
 
 class BaseController
 {

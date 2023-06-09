@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPageBuilder\Core;
+namespace Plugi\Core;
 
 use PDO;
 
@@ -9,7 +9,7 @@ use PDO;
  *
  * A basic shell around PDO.
  *
- * @package PHPageBuilder\Core
+ * @package Plugi\Core
  */
 class DB
 {

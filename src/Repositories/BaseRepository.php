@@ -1,15 +1,15 @@
 <?php
 
-namespace PHPageBuilder\Repositories;
+namespace Plugi\Repositories;
 
-use PHPageBuilder\Core\DB;
+use Plugi\Core\DB;
 
 /**
  * Class BaseRepository
  *
  * The base repository passes CRUD calls to DB and initialises class instances for records returned from DB.
  *
- * @package PHPageBuilder\Repositories
+ * @package Plugi\Repositories
  */
 class BaseRepository
 {

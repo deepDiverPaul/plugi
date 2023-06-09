@@ -1,15 +1,15 @@
 <?php
 
-namespace PHPageBuilder\Modules\WebsiteManager;
+namespace Plugi\Modules\WebsiteManager;
 
-use PHPageBuilder\Contracts\PageContract;
-use PHPageBuilder\Contracts\WebsiteManagerContract;
-use PHPageBuilder\Extensions;
-use PHPageBuilder\Repositories\MenuRepository;
-use PHPageBuilder\Repositories\PageRepository;
-use PHPageBuilder\Repositories\PageTranslationRepository;
-use PHPageBuilder\Repositories\SettingRepository;
-use PHPageBuilder\Repositories\UploadRepository;
+use Plugi\Contracts\PageContract;
+use Plugi\Contracts\WebsiteManagerContract;
+use Plugi\Extensions;
+use Plugi\Repositories\MenuRepository;
+use Plugi\Repositories\PageRepository;
+use Plugi\Repositories\PageTranslationRepository;
+use Plugi\Repositories\SettingRepository;
+use Plugi\Repositories\UploadRepository;
 
 class WebsiteManager implements WebsiteManagerContract
 {

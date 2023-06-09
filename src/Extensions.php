@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPageBuilder;
+namespace Plugi;
 
 class Extensions
 {

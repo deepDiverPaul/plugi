@@ -1,6 +1,6 @@
 <?php
 
-use PHPageBuilder\Extensions;
+use Plugi\Extensions;
 
 $settingIns = phpb_instance('setting');
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-use PHPageBuilder\Extensions;
+use Plugi\Extensions;
 $tabs = include 'tabs/config.php';
 $tabs = array_merge($tabs, Extensions::getBackends());
 $activeSlug = $_GET['tab'] ?: array_key_first($tabs);

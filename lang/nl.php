@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Websitebeheer',
+        'title' => 'Plugi Page Builder',
         'username' => 'Gebruikersnaam',
         'password' => 'Wachtwoord',
         'login-button' => 'Inloggen',

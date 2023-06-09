@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS\Upload;
+namespace Plugi\Modules\GrapesJS\Upload;
 
 use Exception;
 
@@ -10,7 +10,7 @@ use Exception;
  * Credits: https://github.com/brunoribeiro94/php-upload
  *
  * @version 0.6.2
- * @package PHPageBuilder\Modules\GrapesJS\Upload
+ * @package Plugi\Modules\GrapesJS\Upload
  */
 class Uploader {
 

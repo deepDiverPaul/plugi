@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPageBuilder;
+namespace Plugi;
 
-use PHPageBuilder\Contracts\SettingContract;
-use PHPageBuilder\Repositories\SettingRepository;
+use Plugi\Contracts\SettingContract;
+use Plugi\Repositories\SettingRepository;
 
 class Setting implements SettingContract
 {

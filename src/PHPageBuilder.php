@@ -1,21 +1,21 @@
 <?php
 
-namespace PHPageBuilder;
+namespace Plugi;
 
 use DirectoryIterator;
-use PHPageBuilder\Contracts\AuthContract;
-use PHPageBuilder\Contracts\PageContract;
-use PHPageBuilder\Contracts\PageTranslationContract;
-use PHPageBuilder\Contracts\WebsiteManagerContract;
-use PHPageBuilder\Contracts\PageBuilderContract;
-use PHPageBuilder\Contracts\RouterContract;
-use PHPageBuilder\Contracts\ThemeContract;
-use PHPageBuilder\Modules\GrapesJS\PageRenderer;
-use PHPageBuilder\Repositories\UploadRepository;
-use PHPageBuilder\Core\DB;
-use PHPageBuilder\Extensions;
+use Plugi\Contracts\AuthContract;
+use Plugi\Contracts\PageContract;
+use Plugi\Contracts\PageTranslationContract;
+use Plugi\Contracts\WebsiteManagerContract;
+use Plugi\Contracts\PageBuilderContract;
+use Plugi\Contracts\RouterContract;
+use Plugi\Contracts\ThemeContract;
+use Plugi\Modules\GrapesJS\PageRenderer;
+use Plugi\Repositories\UploadRepository;
+use Plugi\Core\DB;
+use Plugi\Extensions;
 
-class PHPageBuilder
+class Plugi
 {
     /**
      * @var AuthContract $auth
@@ -43,7 +43,7 @@ class PHPageBuilder
     protected $theme;
 
     /**
-     * PHPageBuilder constructor.
+     * Plugi constructor.
      *
      * @param array|null $config         configuration in the format defined in config/config.example.php
      */
@@ -156,7 +156,7 @@ class PHPageBuilder
     }
 
     /**
-     * Set the PHPageBuilder configuration to the given array.
+     * Set the Plugi configuration to the given array.
      *
      * @param array $config
      */
@@ -167,7 +167,7 @@ class PHPageBuilder
     }
 
     /**
-     * Set the PHPageBuilder database connection using the given array.
+     * Set the Plugi database connection using the given array.
      *
      * @param array $config
      */
@@ -232,7 +232,7 @@ class PHPageBuilder
 
 
     /**
-     * Return the Auth instance of this PHPageBuilder.
+     * Return the Auth instance of this Plugi.
      *
      * @return AuthContract
      */
@@ -242,7 +242,7 @@ class PHPageBuilder
     }
 
     /**
-     * Return the WebsiteManager instance of this PHPageBuilder.
+     * Return the WebsiteManager instance of this Plugi.
      *
      * @return WebsiteManagerContract
      */
@@ -252,7 +252,7 @@ class PHPageBuilder
     }
 
     /**
-     * Return the PageBuilder instance of this PHPageBuilder.
+     * Return the PageBuilder instance of this Plugi.
      *
      * @return PageBuilderContract
      */
@@ -262,7 +262,7 @@ class PHPageBuilder
     }
 
     /**
-     * Return the Router instance of this PHPageBuilder.
+     * Return the Router instance of this Plugi.
      *
      * @return RouterContract
      */
@@ -272,7 +272,7 @@ class PHPageBuilder
     }
 
     /**
-     * Return the Theme instance of this PHPageBuilder.
+     * Return the Theme instance of this Plugi.
      *
      * @return ThemeContract
      */
@@ -293,7 +293,7 @@ class PHPageBuilder
         $route = $route ?? $_GET['route'] ?? null;
         $action = $action ?? $_GET['action'] ?? null;
         if (! phpb_config('auth.use_login') || ! phpb_config('website_manager.use_website_manager')) {
-            die('The PHPageBuilder Authentication module is disabled, but no alternative has been implemented (you are still calling the standard handleRequest() method).<br>'
+            die('The Plugi Authentication module is disabled, but no alternative has been implemented (you are still calling the standard handleRequest() method).<br>'
                 . 'Implement a piece of code that checks whether the user is logged in. If logged in, call handleAuthenticatedRequest() or else call handlePublicRequest().');
         }
 
@@ -305,7 +305,7 @@ class PHPageBuilder
             $this->auth->requireAuth();
             $this->websiteManager->handleRequest($route, $action);
             header("HTTP/1.1 404 Not Found");
-            die('PHPageBuilder WebsiteManager page not found');
+            die('Plugi WebsiteManager page not found');
         }
 
         // handle page builder requests
@@ -314,7 +314,7 @@ class PHPageBuilder
             phpb_set_in_editmode();
             $this->pageBuilder->handleRequest($route, $action);
             header("HTTP/1.1 404 Not Found");
-            die('PHPageBuilder PageBuilder page not found');
+            die('Plugi PageBuilder page not found');
         }
 
         // handle all requests that do not need authentication
@@ -327,7 +327,7 @@ class PHPageBuilder
             return true;
         }
         header("HTTP/1.1 404 Not Found");
-        die('PHPageBuilder page not found. Check your URL: <b>' . phpb_e(phpb_full_url(phpb_current_relative_url())) . '</b>');
+        die('Plugi page not found. Check your URL: <b>' . phpb_e(phpb_full_url(phpb_current_relative_url())) . '</b>');
     }
 
     /**
@@ -345,7 +345,7 @@ class PHPageBuilder
             header("HTTP/1.1 404 Not Found");
             exit();
         }
-        // if we are on the URL of a PHPageBuilder asset, return the asset
+        // if we are on the URL of a Plugi asset, return the asset
         if (strpos(phpb_current_relative_url(), phpb_config('general.assets_url') . '/') === 0) {
             $this->handlePageBuilderAssetRequest();
             header("HTTP/1.1 404 Not Found");
@@ -490,7 +490,7 @@ class PHPageBuilder
 
         $uploadedFile = $uploadedFile[0];
         $serverFile = realpath(phpb_config('storage.uploads_folder') . '/' . $uploadedFile->server_file);
-        // add backwards compatibility for files uploaded with PHPageBuilder <= v0.12.0, stored as /uploads/{id}.{extension}
+        // add backwards compatibility for files uploaded with Plugi <= v0.12.0, stored as /uploads/{id}.{extension}
         if (! $serverFile) $serverFile = realpath(phpb_config('storage.uploads_folder') . '/' . basename($uploadedFile->server_file));
         if (! $serverFile) {
             header("HTTP/1.1 404 Not Found");

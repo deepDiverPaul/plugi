@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPageBuilder;
+namespace Plugi;
 
 use DirectoryIterator;
-use PHPageBuilder\Contracts\ThemeContract;
+use Plugi\Contracts\ThemeContract;
 
 class Theme implements ThemeContract
 {

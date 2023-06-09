@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder\Repositories;
+namespace Plugi\Repositories;
 
-use PHPageBuilder\Contracts\SettingRepositoryContract;
+use Plugi\Contracts\SettingRepositoryContract;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryContract
 {

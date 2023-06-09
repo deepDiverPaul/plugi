@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder;
+namespace Plugi;
 
-use PHPageBuilder\Contracts\ThemeContract;
+use Plugi\Contracts\ThemeContract;
 
 class ThemeLayout
 {

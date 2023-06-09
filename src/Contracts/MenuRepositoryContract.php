@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPageBuilder\Contracts;
+namespace Plugi\Contracts;
 
 interface MenuRepositoryContract
 {

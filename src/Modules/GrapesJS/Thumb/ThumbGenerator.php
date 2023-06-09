@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS\Thumb;
+namespace Plugi\Modules\GrapesJS\Thumb;
 
-use PHPageBuilder\Contracts\ThemeContract;
-use PHPageBuilder\Modules\GrapesJS\PageRenderer;
-use PHPageBuilder\Page;
-use PHPageBuilder\ThemeBlock;
+use Plugi\Contracts\ThemeContract;
+use Plugi\Modules\GrapesJS\PageRenderer;
+use Plugi\Page;
+use Plugi\ThemeBlock;
 use Exception;
 
 class ThumbGenerator

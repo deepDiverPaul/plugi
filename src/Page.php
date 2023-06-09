@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPageBuilder;
+namespace Plugi;
 
-use PHPageBuilder\Contracts\PageContract;
-use PHPageBuilder\Repositories\PageTranslationRepository;
+use Plugi\Contracts\PageContract;
+use Plugi\Repositories\PageTranslationRepository;
 
 class Page implements PageContract
 {

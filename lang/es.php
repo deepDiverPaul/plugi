@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Webuilder Manager',
+        'title' => 'Plugi Page Builder',
         'username' => 'Usuario',
         'password' => 'Contraseña',
         'login-button' => 'Entrar',

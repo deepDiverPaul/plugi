@@ -26,7 +26,7 @@
     ?>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">Powered by <a href="https://github.com/HansSchouten/PHPageBuilder" target="_blank">PHPageBuilder</a></p>
+        <p class="mb-1">Powered by <a href="https://github.com/deepDiverPaul/plugi" target="_blank">Plugi Page Builder</a></p>
     </footer>
 </div>
 

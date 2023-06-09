@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPageBuilder\Contracts;
+namespace Plugi\Contracts;
 
 interface PageBuilderContract
 {
@@ -57,7 +57,7 @@ interface PageBuilderContract
 
     /**
      * Set a theme for the page builder.
-     * 
+     *
      * @param ThemeContract $theme
      */
     public function setTheme(ThemeContract $theme);

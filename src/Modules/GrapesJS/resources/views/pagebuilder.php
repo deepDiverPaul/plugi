@@ -33,8 +33,8 @@ CKEDITOR.dtd.$editable.table = 1;
 <?php
 $currentLanguage = in_array(phpb_config('general.language'), phpb_active_languages()) ?
     phpb_config('general.language') : array_keys(phpb_active_languages())[0];
-if (! empty($_SESSION['phpagebuilder_language'])) {
-    $currentLanguage = $_SESSION['phpagebuilder_language'];
+if (! empty($_SESSION['plugi_language'])) {
+    $currentLanguage = $_SESSION['plugi_language'];
 }
 ?>
 window.languages = <?= json_encode(phpb_active_languages()) ?>;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPageBuilder\Modules\GrapesJS\Upload;
+namespace Plugi\Modules\GrapesJS\Upload;
 
 use Exception;
 
@@ -15,7 +15,7 @@ use Exception;
  * - max height size while maintaining aspect ratio
  * - automatic dimensions maintaining aspect ratio
  *
- * @package PHPageBuilder\Modules\GrapesJS\Upload
+ * @package Plugi\Modules\GrapesJS\Upload
  */
 class ResizeImage {
 

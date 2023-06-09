@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder\Repositories;
+namespace Plugi\Repositories;
 
-use PHPageBuilder\Contracts\PageTranslationRepositoryContract;
+use Plugi\Contracts\PageTranslationRepositoryContract;
 
 class PageTranslationRepository extends BaseRepository implements PageTranslationRepositoryContract
 {

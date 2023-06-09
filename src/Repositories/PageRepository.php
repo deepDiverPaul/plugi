@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPageBuilder\Repositories;
+namespace Plugi\Repositories;
 
-use PHPageBuilder\Contracts\PageContract;
-use PHPageBuilder\Contracts\PageRepositoryContract;
+use Plugi\Contracts\PageContract;
+use Plugi\Contracts\PageRepositoryContract;
 use Exception;
 
 class PageRepository extends BaseRepository implements PageRepositoryContract

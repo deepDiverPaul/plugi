@@ -1,6 +1,6 @@
 <?php
 
-use PHPageBuilder\Repositories\PageRepository;
+use Plugi\Repositories\PageRepository;
 
 $setting = phpb_instance('setting');
 $pageRepository = new PageRepository;

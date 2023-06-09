@@ -1,6 +1,6 @@
 <?php
 
-use PHPageBuilder\Extensions;
+use Plugi\Extensions;
 
 if (! function_exists('phpb_e')) {
     /**
@@ -32,7 +32,7 @@ if (! function_exists('phpb_encode_or_null')) {
 
 if (! function_exists('phpb_asset')) {
     /**
-     * Return the public path of a PHPageBuilder asset.
+     * Return the public path of a Plugi asset.
      *
      * @param string $path
      * @return string
@@ -541,7 +541,7 @@ if (! function_exists('phpb_slug')) {
 
 if (! function_exists('phpb_autoload')) {
     /**
-     * Autoload classes from the PHPageBuilder package.
+     * Autoload classes from the Plugi package.
      *
      * @param  string $className
      */
@@ -558,8 +558,8 @@ if (! function_exists('phpb_autoload')) {
         }
         $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-        // remove leading PHPageBuilder/ from the class path
-        $fileName = str_replace('PHPageBuilder' . DIRECTORY_SEPARATOR, '', $fileName);
+        // remove leading Plugi/ from the class path
+        $fileName = str_replace('Plugi' . DIRECTORY_SEPARATOR, '', $fileName);
 
         // include class files starting in the src directory
         require __DIR__ . '/../' . $fileName;

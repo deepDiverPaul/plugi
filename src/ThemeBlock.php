@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPageBuilder;
+namespace Plugi;
 
-use PHPageBuilder\Contracts\ThemeContract;
-use PHPageBuilder\Modules\GrapesJS\Block\BaseController;
-use PHPageBuilder\Modules\GrapesJS\Block\BaseModel;
-use PHPageBuilder\Modules\GrapesJS\PageRenderer;
+use Plugi\Contracts\ThemeContract;
+use Plugi\Modules\GrapesJS\Block\BaseController;
+use Plugi\Modules\GrapesJS\Block\BaseModel;
+use Plugi\Modules\GrapesJS\PageRenderer;
 
 class ThemeBlock
 {

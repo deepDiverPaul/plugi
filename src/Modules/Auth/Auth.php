@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPageBuilder\Modules\Auth;
+namespace Plugi\Modules\Auth;
 
-use PHPageBuilder\Contracts\AuthContract;
+use Plugi\Contracts\AuthContract;
 
 class Auth implements AuthContract
 {
