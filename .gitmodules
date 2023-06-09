@@ -1,3 +1,15 @@
 [submodule "plugi-core"]
-	path = plugi-core
+	path = plugi
 	url = git@github.com:deepDiverPaul/plugi-core.git
+[submodule "extensions/demo"]
+	path = extensions/demo
+	url = git@github.com:deepDiverPaul/plugi-ext-demo.git
+[submodule "extensions/form"]
+	path = extensions/form
+	url = git@github.com:deepDiverPaul/plugi-ext-form.git
+[submodule "extensions/sitemap"]
+	path = extensions/sitemap
+	url = git@github.com:deepDiverPaul/plugi-ext-sitemap.git
+[submodule "themes/demo"]
+	path = themes/demo
+	url = git@github.com:deepDiverPaul/plugi-theme-demo.git
