@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
 
     window.pageData = {};
 
@@ -248,10 +248,30 @@ $(document).ready(function() {
         // clone component's parent, enabling us to temporarily remove all component's siblings without updating the pagebuilder
         let container = window.cloneComponent(component.parent());
 
-        // remove all component's siblings since we only want to return the given component in storage format
-        container.get('components').reset();
-        container.append(component);
 
+        console.log({
+            container: container,
+            componentParent: component.parent(),
+        })
+        // remove all component's siblings since we only want to return the given component in storage format
+
+        // container.get('components').reset();
+        // container.append(component);
+        const componentId = component.attributes['block-id']
+        console.log(component.attributes['block-id'])
+        container.components().forEach(c => {
+            console.log({c})
+            // console.log(c?.attributes['block-id'])
+            // console.log(c?.attributes['block-id'] !== componentId)
+            if(c?.attributes['block-id'] !== componentId) {
+              c?.remove()
+            }
+        })
+
+        console.log({
+            containerL: container.get('components').length,
+            componentParentL: component.parent().get('components').length,
+        })
         return getContainerContentInStorageFormat(container);
     };
 
@@ -481,4 +501,4 @@ $(document).ready(function() {
         }
     }
 
-});
+

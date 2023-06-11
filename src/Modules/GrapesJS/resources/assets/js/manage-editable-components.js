@@ -1,4 +1,4 @@
-(function() {
+
 
     /**
      * After loading GrapesJS, add all theme blocks and activate the editable blocks in the main language.
@@ -440,9 +440,9 @@
         settings.forEach(function(setting) {
             let trait = component.addTrait(setting);
             if (settingValues[setting['name']] !== undefined) {
-                trait.setTargetValue(settingValues[setting['name']]);
+                trait[0].setTargetValue(settingValues[setting['name']]);
             } else if (setting['default-value'] !== undefined) {
-                trait.setTargetValue(setting['default-value']);
+                trait[0].setTargetValue(setting['default-value']);
             }
         });
         component.attributes['is-updating'] = false;
@@ -460,7 +460,6 @@
         ) {
             return;
         }
-
         // dynamic pagebuilder blocks can depend on data passed by dynamic parent blocks,
         // so we need to update the closest parent which does not have a dynamic parent itself or the block that is inside a blocks container.
         // also keep track of all intermediate block ids, for re-selecting the currently selected component.
@@ -492,7 +491,6 @@
 
         let container = window.editor.getWrapper().find("#" + component.ccid)[0].parent();
         let data = window.getComponentDataInStorageFormat(component);
-
         // refresh component contents with updated version requested via ajax call
         $.ajax({
             type: "POST",
@@ -539,20 +537,21 @@
      * @returns {null|*}
      */
     function findChildViaBlockIdsPath(component, blockIds) {
+        // foobar
         if (blockIds.length === 0) {
             return component;
         }
 
         let result = null;
 
-        component.components().each(function(child) {
+        component.forEachChild(function(child) {
             if (child.attributes['block-id'] === blockIds[0]) {
                 result = findChildViaBlockIdsPath(child, blockIds.slice(1));
                 return false;
             }
         });
 
-        component.components().each(function(child) {
+        component.forEachChild(function(child) {
             let childResult = findChildViaBlockIdsPath(child, blockIds);
             if (childResult !== null) {
                 result = childResult;
@@ -830,4 +829,4 @@
     }
     waitForGrapesToLoad();
 
-})();
+

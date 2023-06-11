@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
 
     window.CKEDITOR.on('instanceReady', function (event) {
         event.editor.on('paste', function (event) {
@@ -124,4 +124,4 @@ $(document).ready(function() {
         }
     });
 
-});
+
