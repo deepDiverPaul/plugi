@@ -1,4 +1,4 @@
-(function() {
+
 
     window.customBuilderScripts = {};
 
@@ -104,4 +104,4 @@
         }
     }
 
-})();
+

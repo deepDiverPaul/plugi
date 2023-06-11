@@ -2,14 +2,14 @@
 
 let linkType = editor.DomComponents.getType('link');
 editor.DomComponents.addType('link', {
-    model: linkType.model.extend({
-        defaults: Object.assign({}, linkType.model.prototype.defaults, {
+    model: {
+        defaults: {
             traits: [
                 {
-                    type: 'text',
-                    label: '<?= phpb_trans('pagebuilder.trait-manager.link.text') ?>',
-                    name: 'content',
-                    changeProp: 1,
+                type: 'text',
+                label: '<?= phpb_trans('pagebuilder.trait-manager.link.text') ?>',
+                name: 'content',
+                changeProp: 1,
                 },
                 {
                     type: 'text',
@@ -31,15 +31,14 @@ editor.DomComponents.addType('link', {
                     ],
                 }
             ],
-        }),
+        },
         init() {
             this.getTrait('content').setTargetValue(this.attributes.content.trim());
             if (! this.attributes.attributes.target) {
                 this.getTrait('target').setTargetValue(false);
             }
         },
-    }),
-    view: linkType.view
+    }
 });
 
 const textType = editor.DomComponents.getType('text');

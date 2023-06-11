@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
 
     $(".gjs-editor").append($("#toggle-sidebar"));
     $(".gjs-pn-panels").prepend($("#sidebar-header"));
@@ -65,7 +65,7 @@ $(document).ready(function() {
     $(window).on('beforeunload', function(event) {
         if (backspaceIsPressed) event.preventDefault();
     });
-});
+
 
 function addBlockSearch() {
     $(".gjs-blocks-cs").prepend($("#block-search"));

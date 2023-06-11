@@ -89,10 +89,10 @@ return [
             phpb_asset('pagebuilder/page-injection.css'),
         ],
     ],
-    'plugins' => ['grapesjs-touch', 'gjs-plugin-ckeditor'],
+    'plugins' => ['grapesjs-touch', 'grapesjs-plugin-ckeditor'],
     'pluginsOpts' => [
-        'gjs-plugin-ckeditor' => [
-            'position' => 'left',
+        'grapesjs-plugin-ckeditor' => [
+            'position' => 'center',
             'options' => [
                 'startupFocus' => true,
                 'allowedContent' => true,

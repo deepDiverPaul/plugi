@@ -8,9 +8,14 @@ const libraries = [
     fileName: 'WebsiteManager',
   },
   {
-    entry: './src/Modules/GrapesJS/resources/assets/entry.js',
-    name: 'GrapesJS',
-    fileName: 'GrapesJS',
+    entry: './src/Modules/GrapesJS/resources/assets/entryHead.js',
+    name: 'PageBuilderHead',
+    fileName: 'PageBuilderHead',
+  },
+  {
+    entry: './src/Modules/GrapesJS/resources/assets/entryBody.js',
+    name: 'PageBuilderBody',
+    fileName: 'PageBuilderBody',
   },
 ];
 
