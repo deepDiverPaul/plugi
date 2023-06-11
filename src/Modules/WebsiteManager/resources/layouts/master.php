@@ -3,7 +3,10 @@
 use Plugi\Extensions;
 $tabs = include __DIR__ . '/../views/tabs/config.php';
 $tabs = array_merge($tabs, Extensions::getBackends());
-$activeSlug = $_GET['tab'] ?: array_key_first($tabs);
+$activeSlug = array_key_first($tabs);
+if (isset($_GET['tab'])) {
+    $activeSlug = $_GET['tab'];
+}
 ?>
 <!doctype html>
 <html lang="en">

@@ -6,6 +6,7 @@ use Plugi\Contracts\PageContract;
 use Plugi\Contracts\PageTranslationContract;
 use Plugi\Repositories\PageRepository;
 
+#[\AllowDynamicProperties]
 class PageTranslation implements PageTranslationContract
 {
     /**
