@@ -1,5 +1,5 @@
 
-![PHPagebuilder](https://user-images.githubusercontent.com/5946444/67637466-445d4400-f8db-11e9-86ce-6e62ce7ede8a.png)
+![Plugi](https://github.com/deepDiverPaul/plugi-core/blob/408b24e1ed4c9e61fab9af6f8bfec2c939bcdd67/dist/images/plugi-banner.png)
 
 # PHPagebuilder
 > PHPagebuilder is a drag and drop pagebuilder to manage pages in any PHP project.
