@@ -1,4 +1,4 @@
-# PHPagebuilder boilerplate
+![Plugi](https://github.com/deepDiverPaul/plugi-core/blob/408b24e1ed4c9e61fab9af6f8bfec2c939bcdd67/dist/images/plugi-banner.png)
 
 > Boilerplate for quickly spinning up websites using [PHPagebuilder](https://github.com/HansSchouten/PHPagebuilder).
 
