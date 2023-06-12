@@ -1,0 +1,68 @@
+.gjs-sm-header, .gjs-trt-header {
+  font-weight: normal;
+  color: #8c909d;
+}
+
+.gjs-clm-tags {
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  #gjs-clm-status-c,
+  #gjs-clm-sel-help {
+    display: none;
+  }
+  #gjs-clm-new {
+    color: #e1e1e1;
+  }
+  #gjs-clm-add-tag {
+    background-color: #0091d1;
+    border: none;
+    box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2) inset;
+    color: #fff;
+
+    &:hover {
+      background-color: #004a6c;
+    }
+  }
+}
+
+.gjs-sm-sectors {
+  .gjs-four-color,
+  .gjs-color-warn {
+    color: #e1e1e1;
+  }
+
+  .gjs-sm-field.gjs-sm-composite {
+    background-color: rgba(195, 226, 236, 0.14);
+    border: 1px solid rgba(121, 147, 155, 0.14);
+  }
+
+  .gjs-sm-layers {
+    background-color: #3a3f4a;
+
+    .gjs-sm-btn {
+      background: #fff;
+      color: #000;
+      text-shadow: none;
+    }
+
+    .gjs-field {
+      padding: 0;
+      background-color: #3a3f4a;
+
+      select {
+        color: #fff;
+        background: #424853;
+      }
+    }
+  }
+
+  .gjs-sm-stack #gjs-sm-add {
+    color: #fff;
+
+    &:hover {
+      color: #aaa;
+    }
+  }
+}
