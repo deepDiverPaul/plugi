@@ -23,16 +23,16 @@ $pages = $pageRepository->getAll();
         endif;
         ?>
 
-        <div x-data="{menus: <?= phpb_e($menusJson) ?>, pages: <?= phpb_e($menuPagesJson) ?>}" class="flex flex-col gap-8">
+        <div x-data="{menus: <?= phpb_e($menusJson) ?>, pages: <?= phpb_e($menuPagesJson) ?>}" class="flex flex-col gap-12">
             <template x-for="menu in menus">
                 <div class="">
                     <div class="px-6 mb-4 flex justify-between">
                         <div class="text-2xl font-bold" x-text="menu.name"></div>
                         <div class="dropdown dropdown-end dropdown-hover" x-show="(menu.pages.length < pages.length)">
-                            <label tabindex="0" class="btn btn-circle btn-sm">
-                                <i class="text-2xl ph-bold ph-plus"></i>
+                            <label tabindex="0" class="btn btn-square btn-sm">
+                                <i class=" text-2xl ph ph-list-plus"></i>
                             </label>
-                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-10">
                                 <template x-for="page in pages.filter(p=> !menu.pages.map(m=>m.id).includes(p.id))">
                                     <li>
                                         <a href="javascript:void(0)" @click="menu.pages.push(page)">
@@ -44,33 +44,43 @@ $pages = $pageRepository->getAll();
                             </ul>
                         </div>
                     </div>
-                    <div class="">
-                        <input type="hidden" :name="menu.name" :value="menu.pages.map(p=>p.id).join(',')">
+                    <input type="hidden" :name="menu.name" :value="menu.pages.map(p=>p.id).join(',')">
+                    <table class="table table-zebra w-full">
+                        <thead>
+                        <tr>
+                            <th class="w-5">ID</th>
+                            <th class="w-5/12"><?= phpb_trans('website-manager.name') ?></th>
+                            <th><?= phpb_trans('website-manager.route') ?></th>
+                            <th class="w-36"><?= phpb_trans('website-manager.actions') ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         <template x-for="(page, index) in menu.pages">
-                            <div class="flex flex-nowrap gap-4 px-6 py-4 border-l border-r last:border-b border-t first-of-type:rounded-t last:rounded-b">
-                                <div class="flex-none w-6" x-text="page.id"></div>
-                                <div class="grow" x-text="page.title"></div>
-                                <div class="flex-none w-60" x-text="page.route"></div>
-                                <div class="flex-none">
-                                    <button type="button" @click.stop.prevent="arraymove(menu.pages,index,index-1)" class="btn btn-outline btn-circle btn-xs" :disabled="index === 0">
-                                        <i class="ph-fill ph-arrow-fat-up"></i>
+                            <tr>
+                                <th x-text="page.id"></th>
+                                <td x-text="page.title"></td>
+                                <td x-text="page.route"></td>
+                                <td>
+                                    <button type="button" @click.stop.prevent="arraymove(menu.pages,index,index-1)" class="btn btn-outline btn-circle btn-sm" :disabled="index === 0">
+                                        <i class="ph-duotone ph-arrow-fat-up text-xl"></i>
                                     </button>
-                                    <button type="button" @click.stop.prevent="arraymove(menu.pages,index,index+1)" class="btn btn-outline btn-circle btn-xs" :disabled="index === menu.pages.length - 1">
-                                        <i class="ph-fill ph-arrow-fat-down"></i>
+                                    <button type="button" @click.stop.prevent="arraymove(menu.pages,index,index+1)" class="btn btn-outline btn-circle btn-sm" :disabled="index === menu.pages.length - 1">
+                                        <i class="ph-duotone ph-arrow-fat-down text-xl"></i>
                                     </button>
-                                    <button @click.stop.prevent="arraymove(menu.pages,index)" class="btn btn-outline btn-circle btn-error btn-xs">
-                                        <i class="ph-duotone ph-trash"></i>
+                                    <button @click.stop.prevent="arraymove(menu.pages,index)" class="btn btn-outline btn-circle btn-error btn-sm">
+                                        <i class="ph-duotone ph-trash text-xl"></i>
                                     </button>
-                                </div>
-                            </div>
+                                </td>
+                            </tr>
                         </template>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </template>
         </div>
 
         <div class="text-center mt-8">
-            <button class="btn btn-primary btn-sm">
+            <button class="btn btn-primary">
                 <?= phpb_trans('website-manager.save-menus'); ?>
             </button>
         </div>

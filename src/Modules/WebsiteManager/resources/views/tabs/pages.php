@@ -2,8 +2,9 @@
     <?php
     if (phpb_flash('message')):
         ?>
-        <div class="alert alert-<?= phpb_flash('message-type') ?>">
-            <?= phpb_flash('message') ?>
+        <div class="alert alert-<?= phpb_flash('message-type') ?> mb-6">
+            <i class="text-xl ph-duotone ph-info"></i>
+            <span><?= phpb_flash('message') ?></span>
         </div>
     <?php
     endif;
@@ -59,7 +60,7 @@
 
 
 <div class="text-center mt-8">
-    <a href="<?= phpb_url('website_manager', ['route' => 'page_settings', 'action' => 'create']) ?>" class="btn btn-primary btn-sm">
+    <a href="<?= phpb_url('website_manager', ['route' => 'page_settings', 'action' => 'create']) ?>" class="btn btn-primary">
         <?= phpb_trans('website-manager.add-new-page') ?>
     </a>
 </div>

@@ -84,7 +84,7 @@ $settingIns = phpb_instance('setting');
             ?>
         </div>
 
-        <button class="btn btn-primary btn-sm mt-8">
+        <button class="btn btn-primary mt-8">
             <?= phpb_trans('website-manager.save-settings'); ?>
         </button>
 

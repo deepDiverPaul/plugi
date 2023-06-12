@@ -2,6 +2,8 @@
 
 namespace Plugi;
 
+#[\AllowDynamicProperties]
+
 class UploadedFile
 {
     /**

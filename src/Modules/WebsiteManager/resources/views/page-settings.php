@@ -7,16 +7,10 @@ if (isset($page)) {
 $pageTranslations = $page ? $page->getTranslations() : [];
 ?>
 
-<div class="py-8">
-    <h2 class="text-center text-2xl"><?= phpb_trans('website-manager.title') ?></h2>
-</div>
 
-<div class="row">
-    <div class="col-12">
-
-        <div class="manager-panel">
+        <div class="manager-panel p-8 w-full">
             <form method="post" action="<?= phpb_url('website_manager', ['route' => 'page_settings', 'action' => $action]) ?><?= $pageUrlParam ?>">
-                <h4 class="text-center text-lg">
+                <div class="text-center text-3xl font-bold mb-8 mt-2">
                     <?php
                     if ($action === 'create'):
                         echo phpb_trans('website-manager.add-new-page');
@@ -24,7 +18,7 @@ $pageTranslations = $page ? $page->getTranslations() : [];
                         echo phpb_trans('website-manager.edit-page');
                     endif;
                     ?>
-                </h4>
+                </div>
 
                 <div class="max-w-lg p-4 mx-auto">
                     <div class="form-control w-full mb-4">
@@ -123,6 +117,3 @@ $pageTranslations = $page ? $page->getTranslations() : [];
             </form>
 
         </div>
-    </div>
-
-</div>
