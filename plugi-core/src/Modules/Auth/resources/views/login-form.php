@@ -6,9 +6,11 @@
     <?php
     if (phpb_flash('message')):
     ?>
-    <div class="alert alert-<?= phpb_flash('message-type') ?>">
-        <?= phpb_flash('message') ?>
-    </div>
+        <div class="hidden alert-warning"></div>
+        <div class="alert alert-<?= phpb_flash('message-type') ?> mb-6">
+            <i class="text-xl ph-duotone ph-warning"></i>
+            <span><?= phpb_flash('message') ?></span>
+        </div>
     <?php
     endif;
     ?>
