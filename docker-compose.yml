@@ -23,8 +23,8 @@ services:
       - MYSQL_DATABASE=plugi
       - MYSQL_USER=plugi
       - MYSQL_PASSWORD=plugi
-    ports:
-      - '63002:3306'
+#    ports:
+#      - '63002:3306'
     networks:
       - backend
 
