@@ -7,14 +7,12 @@ return [
      |--------------------------------------------------------------------------
      |
      | General settings for configuring the PageBuilder.
-     | If you install phpb with Composer, general.assets_url line must be:
-     | 'assets_url' => '/vendor/hansschouten/plugi/dist',
      |
      */
     'general' => [
         'base_url' => 'http://localhost:63000',
         'language' => 'de',
-        'assets_url' => '/plugi/dist',
+        'assets_url' => '/plugi-core/dist',
         'uploads_url' => '/uploads'
     ],
 
