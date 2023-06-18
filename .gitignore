@@ -14,8 +14,6 @@ dist-ssr
 cache
 uploads
 
-docker
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
