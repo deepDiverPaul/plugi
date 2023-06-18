@@ -9,7 +9,7 @@ return [
     'menus' => [
         'title' => phpb_trans('website-manager.menus'),
         'include' => __DIR__ . '/menus.php',
-        'icon' => '<i class="ph ph-list"></i>',
+        'icon' => '<i class="ph ph-list-dashes"></i>',
     ],
     'files' => [
         'title' => phpb_trans('website-manager.files'),

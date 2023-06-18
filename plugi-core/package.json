@@ -24,7 +24,6 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
-    "@phosphor-icons/web": "^2.0.3",
     "alpinejs": "^3.12.2",
     "grapesjs": "^0.21.2"
   }

@@ -38,7 +38,7 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `name`, `pages`) VALUES
-(1, 'Main', '1,3'),
+(1, 'Main', '1,2'),
 (2, 'Footer', '1');
 
 -- --------------------------------------------------------
@@ -62,8 +62,7 @@ CREATE TABLE `pages` (
 
 INSERT INTO `pages` (`id`, `name`, `layout`, `data`, `updated_at`, `created_at`) VALUES
 (1, 'Home', 'master', NULL, '2023-06-05 07:10:09', '2023-06-05 07:10:09'),
-(2, 'Sitemap', 'sitemap', NULL, '2023-06-05 07:11:15', '2023-06-05 07:10:41'),
-(3, 'About', 'master', NULL, '2023-06-05 07:10:57', '2023-06-05 07:10:57');
+(2, 'About', 'master', NULL, '2023-06-05 07:10:57', '2023-06-05 07:10:57');
 
 -- --------------------------------------------------------
 
@@ -89,8 +88,7 @@ CREATE TABLE `page_translations` (
 
 INSERT INTO `page_translations` (`id`, `page_id`, `locale`, `title`, `meta_title`, `meta_description`, `route`, `updated_at`, `created_at`) VALUES
 (1, 1, 'de', 'Home', 'Home', 'Home', '/', '2023-06-05 07:10:09', '2023-06-05 07:10:09'),
-(2, 2, 'de', 'Sitemap', '', '', '/sitemap.xml', '2023-06-05 07:10:41', '2023-06-05 07:10:41'),
-(3, 3, 'de', 'About', 'About', 'Description', '/about', '2023-06-05 07:10:57', '2023-06-05 07:10:57');
+(2, 2, 'de', 'About', 'About', 'Description', '/about', '2023-06-05 07:10:57', '2023-06-05 07:10:57');
 
 -- --------------------------------------------------------
 

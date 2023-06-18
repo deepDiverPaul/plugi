@@ -17,6 +17,9 @@ if (isset($_GET['tab'])) {
 
     <?= phpb_registered_assets('admin-header') ?>
     <link href="<?= phpb_asset('WebsiteManager.css') ?>" rel="stylesheet">
+    <link href="<?= phpb_asset('icons/duotone/style.css') ?>" rel="stylesheet">
+    <link href="<?= phpb_asset('icons/regular/style.css') ?>" rel="stylesheet">
+    <link href="<?= phpb_asset('icons/bold/style.css') ?>" rel="stylesheet">
 </head>
 <body>
 
@@ -24,14 +27,16 @@ if (isset($_GET['tab'])) {
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col items-center justify-top">
         <!-- Page content here -->
-        <div class="navbar bg-base-100 lg:hidden">
+        <div class="navbar lg:hidden bg-base-100">
             <div class="navbar-start">
-                <label for="my-drawer-2" class="btn btn-square btn-ghost drawer-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <label for="my-drawer-2" class="btn btn-square btn-accent drawer-button border-primary">
+                    <i class="text-lg ph-bold ph-list"></i>
                 </label>
             </div>
             <div class="navbar-center">
-                <span class="text-xl"><?= phpb_trans('website-manager.title') ?></span>
+                <span class="text-xl text-primary">
+                    <i class="inline-block ph-bold ph-brackets-square rotate-90"></i> <?= phpb_trans('website-manager.title') ?>
+                </span>
             </div>
             <div class="navbar-end">
                 <a href="<?= phpb_url('auth', ['action' => 'logout']) ?>" class="btn btn-square btn-ghost">
@@ -52,14 +57,14 @@ if (isset($_GET['tab'])) {
         <label for="my-drawer-2" class="drawer-overlay"></label>
         <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content">
             <!-- Sidebar content here -->
-            <div class="py-5 text-2xl text-center">
-                <h2><?= phpb_trans('website-manager.title') ?></h2>
+            <div class="py-5 text-2xl text-center text-primary">
+                <h2"><i class="inline-block ph-bold ph-brackets-square rotate-90"></i> <?= phpb_trans('website-manager.title') ?></h2>
             </div>
             <?php
             foreach ($tabs as $slug => $tab) :
                 ?>
             <li class="mb-1">
-                <a class="<?= phpb_e($slug === $activeSlug ? 'bg-base-100' : '' ) ?>" href="?tab=<?= phpb_e($slug) ?>">
+                <a class="<?= phpb_e($slug === $activeSlug ? 'bg-accent text-primary' : '' ) ?>" href="?tab=<?= phpb_e($slug) ?>">
                     <?= $tab['icon'] ?: '<i class="ph ph-circles-four"></i>' ?> <?= phpb_e($tab['title']) ?>
                 </a>
             </li>
