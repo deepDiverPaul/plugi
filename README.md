@@ -1,34 +1,25 @@
-![Plugi](https://github.com/deepDiverPaul/plugi-core/blob/408b24e1ed4c9e61fab9af6f8bfec2c939bcdd67/dist/images/plugi-banner.png)
+![Plugi](https://github.com/deepDiverPaul/plugi/blob/0357cc90d603ff3c33e68d5e5de160abce7315c0/plugi-core/dist/images/plugi-banner.png)
 
-> Boilerplate for quickly spinning up websites using [PHPagebuilder](https://github.com/HansSchouten/PHPagebuilder).
+> A fork of [PHPagebuilder](https://github.com/HansSchouten/PHPagebuilder) by [Hans Schouten](https://github.com/HansSchouten).
 
-This boilerplate defines the project structure for quickly creating a website that can be managed with a drag and drop pagebuilder.
+> Still a work-in-progress
+
+This boilerplate defines the project structure for quickly creating a website that can be managed with a drag and drop
+pagebuilder.
 
 ## Installation
 
-To setup your website download the boilerplate and upload it to the webroot directory of your website.
+To setup your website download the latest version of Plugi and upload it to the webroot directory of your website.
 
-### Install PHPagebuilder with Composer
-To install PHPagebuilder via composer, SSH to your webroot directory and run the following command:
-
-```
-composer require hansschouten/phpagebuilder
-```
-
-Now uncomment line 7 of `index.php`.
-
-### Install PHPagebuilder without Composer
-If you don't want to use composer, simply download the latest version of PHPagebuilder [here](https://github.com/HansSchouten/PHPagebuilder) and upload it in a directory called `phpagebuilder` inside your webroot directory.
-
-Now uncomment lines 10 and 11 of `index.php`.
-
-### Add the config file
-Copy the `config.example.php` from your version of the [PHPagebuilder project](https://github.com/HansSchouten/PHPagebuilder) and add it as `config.php` to your website's root directory.
-
-### Configure a database
-If you use PHPagebuilder without any customizations, it requires a database for storing your pages. Just create a database and run the queries from `config/create-tables.sql` of your version of the [PHPagebuilder project](https://github.com/HansSchouten/PHPagebuilder). Next, add the database credentials to your config file.
+### Edit the config file
+The file `config.php` holds all the basic configuration for your project. Edit as needed. Be sure to update the
+login-credentials.
 
 ### Login
-Now you should be able to log in to the admin panel by going to the `/admin` URL of your website using `admin` and `changethispassword` (you can change these in the config file). If you are able to login you can follow the instructions to start building your website as described in the [main project's repository](https://github.com/HansSchouten/PHPagebuilder).
+Now you should be able to log in to the admin panel by going to the `/admin` URL of your website using `admin` and
+`admin` (you can change these in the config file). If you are able to login you can start building your website.
 
 Note: make sure to disable error reporting in `index.php` once your website goes into production!
+
+## Docker 
+Simply run `docker-compose up -d` using the supplied `docker-compose.yml`. The image uses PHP 8.2
