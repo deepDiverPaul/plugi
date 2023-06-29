@@ -42,6 +42,15 @@ class Extensions
         'admin-footer' => [],
     ];
 
+    protected static $htmlBlocks = [
+        'head-end' => [],
+        'body-start' => [],
+        'body-end' => [],
+        'admin-head-end' => [],
+        'admin-body-start' => [],
+        'admin-body-end' => [],
+    ];
+
     /**
      * Register an asset.
      * @param string $src
@@ -54,6 +63,17 @@ class Extensions
             'src' => $src,
             'type' => $type,
             'attributes' => $attributes
+        ];
+    }
+
+    /**
+     * Register an HtmlBlock.
+     * @param string $html
+     * @param string $location
+     */
+    public static function registerHtmlBlock(string $html, string $location = 'head-end') {
+        self::$assets[$location][] = [
+            'html' => $html,
         ];
     }
 
@@ -220,6 +240,13 @@ class Extensions
      */
     public static function getLayout(string $id) {
         return self::$layouts[$id] ?? null;
+    }
+
+    /**
+     * Get all header assets.
+     */
+    public static function getHtmlBlocks(string $location = 'head-end') {
+        return implode('', self::$htmlBlocks[$location]);
     }
 
     /**

@@ -92,11 +92,11 @@ class Plugi
 
         $this->router = phpb_instance('router');
 
-        // load translations in the language that is currently active
-        $this->loadTranslations(phpb_current_language());
-
         // load extensions
         $this->loadExtensions();
+
+        // load translations in the language that is currently active
+        $this->loadTranslations(phpb_current_language());
     }
 
     /**
@@ -136,12 +136,13 @@ class Plugi
         if (file_exists('extensions') && is_dir('extensions')) {
             $extensionsDirectory = new DirectoryIterator('extensions');
             foreach ($extensionsDirectory as $entry) {
-                $extKey = $entry->getFilename();
-                $extensionFile = 'extensions/' . $extKey . '/extension.php';
-                $configFile = 'extensions/'    . $extKey . '/config.php';
+                $extFolder = $entry->getFilename();
+                $extensionFile = 'extensions/' . $extFolder . '/extension.php';
+                $configFile = 'extensions/'    . $extFolder . '/config.php';
                 if ($entry->isDir() && ! $entry->isDot() && file_exists($extensionFile) && file_exists($configFile)) {
                     require $extensionFile;
                     $extConfig = include($configFile);
+                    $extKey = $extConfig['identifier'];
                     Extensions::registerConfig($extKey, $extConfig);
                     if(array_key_exists('settings', $extConfig) && is_array($extConfig['settings'])){
                         Extensions::addSettings(array_map(function ($setting) use($extKey){

@@ -39,6 +39,8 @@ return [
         'required' => 'Pflichtfeld',
         'website-languages' => 'Website Sprachen',
         'languages-selector-placeholder' => 'Wähle eine oder mehr Sprachen aus',
+        'admin-language' => 'Admin Sprache',
+        'selected-theme' => 'Ausgewähltes Template',
         'save-settings' => 'Einstellungen speichern',
         'settings-updated' => 'Einstellungen aktualisiert',
         'save-menus' => 'Menus speichern',

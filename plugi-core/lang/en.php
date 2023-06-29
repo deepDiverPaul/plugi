@@ -39,6 +39,8 @@ return [
         'required' => 'Required',
         'website-languages' => 'Website languages',
         'languages-selector-placeholder' => 'Select one or more languages',
+        'admin-language' => 'Admin Language',
+        'selected-theme' => 'Selected theme',
         'save-settings' => 'Save settings',
         'settings-updated' => 'Settings successfully updated',
         'save-menus' => 'Save menus',

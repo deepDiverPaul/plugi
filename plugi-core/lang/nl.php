@@ -39,6 +39,8 @@ return [
         'required' => 'Required',
         'website-languages' => 'Website talen',
         'languages-selector-placeholder' => 'Selecteer één of meerdere talen',
+        'admin-language' => 'Admin Language',
+        'selected-theme' => 'Selected theme',
         'save-settings' => 'Instellingen opslaan',
         'settings-updated' => 'Instellingen opgeslagen',
         'save-menus' => 'Save menus',

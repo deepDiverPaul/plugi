@@ -41,6 +41,8 @@ return [
         'languages-selector-placeholder' => 'Selecciona uno o más idiomas',
         'save-settings' => 'Guardar ajustes',
         'settings-updated' => 'Ajustes actualizados correctamente',
+        'admin-language' => 'Admin Language',
+        'selected-theme' => 'Selected theme',
         'save-menus' => 'Save menus',
         'menus-updated' => 'Menus updated',
         'pagebuilder-block-images' => 'Listado de bloques',
