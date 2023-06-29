@@ -7,8 +7,8 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, 'src/main.ts'),
-      name: 'phpb-demo-template',
-      fileName: 'phpb-demo-template',
+      name: 'plugi-theme-one',
+      fileName: 'plugi-theme-one',
     },
   },
 })

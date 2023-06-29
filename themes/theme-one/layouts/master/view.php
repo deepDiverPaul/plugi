@@ -93,7 +93,7 @@ use Plugi\Repositories\MenuRepository;
     </div>
 </footer>
 
-<script src="<?= phpb_theme_asset('dist/phpb-demo-template.js') ?>"></script>
+<script src="<?= phpb_theme_asset('dist/plugi-theme-one.js') ?>"></script>
 
 <!-- Run Plugi script.js files -->
 <script type="text/javascript">
