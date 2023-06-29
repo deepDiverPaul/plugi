@@ -54,17 +54,25 @@ class DB
      */
     public function all(string $table, $columns = '*')
     {
-        if (is_array($columns)) {
-            foreach ($columns as &$column) {
-                $column = preg_replace('/[^a-zA-Z_]*/', '', $column);
+        try {
+            if (is_array($columns)) {
+                foreach ($columns as &$column) {
+                    $column = preg_replace('/[^a-zA-Z_]*/', '', $column);
+                }
+                $columns = implode(',', $columns);
+                $stmt = $this->pdo->prepare("SELECT {$columns} FROM {$table}");
+            } else {
+                $stmt = $this->pdo->prepare("SELECT * FROM {$table}");
             }
-            $columns = implode(',', $columns);
-            $stmt = $this->pdo->prepare("SELECT {$columns} FROM {$table}");
-        } else {
-            $stmt = $this->pdo->prepare("SELECT * FROM {$table}");
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (\PDOException $e) {
+            $_SESSION["phpb_flash"] = [
+                'message-type' => 'error',
+                'message' => phpb_trans('website-manager.check-database')
+            ];
+            return [];
         }
-        $stmt->execute();
-        return $stmt->fetchAll();
     }
 
     /**
@@ -109,18 +117,12 @@ class DB
     }
 
     function tableExists($table) {
-
-        // Try a select statement against the table
-        // Run it in try-catch in case PDO is in ERRMODE_EXCEPTION.
         try {
-            $result = $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+            $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+            return TRUE;
         } catch (Exception $e) {
-            // We got an exception (table not found)
             return FALSE;
         }
-
-        // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
-        return $result !== FALSE;
     }
 
     /**
@@ -134,7 +136,7 @@ class DB
     {
         // check if table with the name $table exists. if not, execute $query.'
         try {
-            $result = $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+            $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
             return TRUE;
         } catch (Exception $e) {
             $stmt = $this->pdo->prepare($sql);
