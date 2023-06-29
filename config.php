@@ -147,7 +147,7 @@ return [
         'class' => Plugi\Theme::class,
         'folder' => __DIR__ . '/themes',
         'folder_url' => '/themes',
-        'active_theme' => 'demo'
+        'active_theme' => 'theme-one'
     ],
 
     /*

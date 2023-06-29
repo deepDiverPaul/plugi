@@ -1,0 +1,30 @@
+{
+  "name": "phpb-demo-template",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm-watch build",
+    "build": "tsc && vite build"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src",
+        "blocks",
+        "layouts"
+      ],
+      "extensions": "ts,html,php",
+      "quiet": false
+    }
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "flowbite": "^1.6.5",
+    "npm-watch": "^0.11.0",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9"
+  }
+}
