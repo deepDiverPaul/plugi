@@ -11,18 +11,6 @@ $pages = $pageRepository->getAll();
 
     <div class="main-spacing" >
 
-        <?php
-        if (phpb_flash('message')):
-            ?>
-            <div class="hidden alert-success"></div>
-            <div class="alert alert-<?= phpb_flash('message-type') ?> mb-6">
-                <i class="text-xl ph-duotone ph-info"></i>
-                <span><?= phpb_flash('message') ?></span>
-            </div>
-        <?php
-        endif;
-        ?>
-
         <div x-data="{menus: <?= phpb_e($menusJson) ?>, pages: <?= phpb_e($menuPagesJson) ?>}" class="flex flex-col gap-12">
             <template x-for="menu in menus">
                 <div class="">

@@ -7,18 +7,6 @@ $settingIns = phpb_instance('setting');
 
 <form method="post" action="<?= phpb_url('website_manager', ['route' => 'settings', 'action' => 'update', 'tab' => 'settings']) ?>">
 
-    <div class="max-w-lg mx-auto text-center">
-        <?php
-        if (phpb_flash('message')):
-        ?>
-        <div class="alert alert-<?= phpb_flash('message-type') ?> mb-6">
-            <i class="text-xl ph-duotone ph-info"></i>
-            <span><?= phpb_flash('message') ?></span>
-        </div>
-        <?php
-        endif;
-        ?>
-
         <div class="w-full mb-6">
             <div class="label-text text-left"><?= phpb_trans('website-manager.website-languages') ?></div>
             <?php
