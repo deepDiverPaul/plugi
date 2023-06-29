@@ -176,10 +176,6 @@ class Plugi
     {
         global $phpb_db;
         $phpb_db = new DB($config);
-        $tables = include __DIR__.'/../config/tables.php';
-        foreach ($tables as $table => $sql) {
-            $phpb_db->prepare($table, $sql);
-        }
     }
 
     /**
