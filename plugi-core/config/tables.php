@@ -37,7 +37,9 @@ return [
                 (2, 'Footer', '1');
                 ALTER TABLE `menus`
                   ADD PRIMARY KEY (`id`),
-                  ADD UNIQUE KEY `menu` (`name`);",
+                  ADD UNIQUE KEY `menu` (`name`);
+                ALTER TABLE `menus`
+                  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;",
     'page_translations' => "CREATE TABLE `page_translations` (
                               `id` int NOT NULL,
                               `page_id` int NOT NULL,
