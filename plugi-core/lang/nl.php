@@ -47,6 +47,7 @@ return [
         'menus-updated' => 'Menus updated',
         'pagebuilder-block-images' => 'Pagebuilder blok afbeeldingen',
         'render-thumbs' => 'Blok afbeeldingen genereren',
+        'check-database' => 'Check database'
     ],
     'pagebuilder' => [
         'filter-placeholder' => 'Filter',

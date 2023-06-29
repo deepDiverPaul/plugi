@@ -47,6 +47,7 @@ return [
         'menus-updated' => 'Menus updated',
         'pagebuilder-block-images' => 'Listado de bloques',
         'render-thumbs' => 'Mostrar Miniaturas',
+        'check-database' => 'Check database'
     ],
     'pagebuilder' => [
         'filter-placeholder' => 'Filtrar',

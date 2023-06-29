@@ -46,7 +46,8 @@ return [
         'save-menus' => 'Menus speichern',
         'menus-updated' => 'Menus aktualisiert',
         'pagebuilder-block-images' => 'Seiteneditor Vorschaubilder',
-        'render-thumbs' => 'Vorschaubilder generieren'
+        'render-thumbs' => 'Vorschaubilder generieren',
+        'check-database' => 'Datenbank überprüfen im Info-Tab'
     ],
     'pagebuilder' => [
         'filter-placeholder' => 'Filter',

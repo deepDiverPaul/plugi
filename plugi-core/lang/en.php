@@ -46,7 +46,8 @@ return [
         'save-menus' => 'Save menus',
         'menus-updated' => 'Menus updated',
         'pagebuilder-block-images' => 'Pagebuilder block thumbnails',
-        'render-thumbs' => 'Render Thumbnails'
+        'render-thumbs' => 'Render Thumbnails',
+        'check-database' => 'Check database'
     ],
     'pagebuilder' => [
         'filter-placeholder' => 'Filter',
