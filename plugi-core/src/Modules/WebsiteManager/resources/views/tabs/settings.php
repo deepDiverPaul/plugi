@@ -16,7 +16,6 @@ $settingIns = phpb_instance('setting');
                     <label class="label cursor-pointer">
                         <span class="label-text"><?= phpb_e($localeText) ?></span>
                         <input type="checkbox" name="languages[]" value="<?= phpb_e($locale) ?>" <?= phpb_e($settingIns::has('languages', $locale)) ? 'checked' : '' ?> class="checkbox checkbox-sm" />
-
                     </label>
                 </div>
             <?php
@@ -116,6 +115,5 @@ $settingIns = phpb_instance('setting');
 <!--        <a href="--><?php //= phpb_url('website_manager', ['route' => 'settings', 'action' => 'renderBlockThumbs']) ?><!--" class="btn btn-secondary btn-sm mr-1">-->
 <!--            --><?php //= phpb_trans('website-manager.render-thumbs') ?>
 <!--        </a>-->
-    </div>
 
 </form>

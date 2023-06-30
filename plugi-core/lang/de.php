@@ -45,6 +45,7 @@ return [
         'settings-updated' => 'Einstellungen aktualisiert',
         'save-menus' => 'Menus speichern',
         'menus-updated' => 'Menus aktualisiert',
+        'db-updated' => 'Datenbank aktualisiert',
         'pagebuilder-block-images' => 'Seiteneditor Vorschaubilder',
         'render-thumbs' => 'Vorschaubilder generieren',
         'check-database' => 'Datenbank überprüfen im Info-Tab'

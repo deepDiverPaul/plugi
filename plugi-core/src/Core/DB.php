@@ -119,28 +119,82 @@ class DB
     function tableExists($table) {
         try {
             $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
-            return TRUE;
+            return true;
         } catch (Exception $e) {
-            return FALSE;
+            return false;
         }
     }
 
-    /**
-     * Perform a custom query with user input data passed as $parameters.
-     *
-     * @param string $table
-     * @param string $sql
-     * @return bool
-     */
-    public function prepare(string $table, string $sql)
+    public function columnExists(string $table, string $column)
     {
         // check if table with the name $table exists. if not, execute $query.'
         try {
-            $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
-            return TRUE;
+            $rs = $this->pdo->query("SELECT * FROM {$table} LIMIT 0");
+            for ($i = 0; $i < $rs->columnCount(); $i++) {
+                $col = $rs->getColumnMeta($i);
+                $columns[] = $col['name'];
+            }
+            if (in_array($column, $columns)) return true;
+            return false;
         } catch (Exception $e) {
-            $stmt = $this->pdo->prepare($sql);
-            return $stmt->execute();
+            return false;
+        }
+    }
+
+    public function uniqueKeyExists(string $table, string $key)
+    {
+        // check if table with the name $table exists. if not, execute $query.'
+        try {
+            $keys = $this->select(
+                "SELECT CONSTRAINT_NAME FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = ? AND TABLE_SCHEMA = 'plugi' AND TABLE_NAME = ? AND CONSTRAINT_TYPE = 'UNIQUE'",
+                [$key, $table]
+            );
+            if (count($keys) === 1) return true;
+            return false;
+        } catch (Exception $e) {
+            print_r($e->getMessage());
+            return false;
+        }
+    }
+
+    public function diffDB() {
+        $tables = include __DIR__.'/../../config/tables.php';
+        $diff = [];
+
+        foreach ($tables as $table => $tableDefinition) {
+            if ($this->tableExists($table) === false) {
+                $diff[$table] = false;
+            } else {
+                $diff[$table]['columns'] = [];
+                foreach ($tableDefinition['columns'] as $column => $columnDefinition) {
+                    if(!$this->columnExists($table, $column)) $diff[$table]['columns'][$column] = $columnDefinition;
+                }
+                $diff[$table]['uniqueKeys'] = [];
+                foreach ($tableDefinition['uniqueKeys'] as $key => $keyDefinition) {
+                    if(!$this->uniqueKeyExists($table, $key)) $diff[$table]['uniqueKeys'][$key] = '`'.implode('`,`', $keyDefinition).'`';
+                }
+            }
+
+        }
+
+        return $diff;
+    }
+
+    public function resolveDiffDB() {
+        $diff = $this->diffDB();
+        foreach ($diff  as $table => $tableDiff) {
+            if($tableDiff === false){
+                $this->query("CREATE TABLE {$table} (`id` int NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3");
+                $this->query("ALTER TABLE {$table} ADD PRIMARY KEY (`id`)");
+                $this->query("ALTER TABLE {$table} MODIFY `id` int NOT NULL AUTO_INCREMENT");
+            } elseif (is_array($tableDiff)) {
+                foreach ($tableDiff['columns'] as $column => $columnDefinition) {
+                    $this->query("ALTER TABLE {$table} ADD {$column} {$columnDefinition}");
+                }
+                foreach ($tableDiff['uniqueKeys'] as $key => $keyDefinition) {
+                    $this->query("ALTER TABLE {$table} ADD UNIQUE KEY {$key} ($keyDefinition)");
+                }
+            }
         }
     }
 }

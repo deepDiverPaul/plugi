@@ -45,6 +45,7 @@ return [
         'settings-updated' => 'Settings successfully updated',
         'save-menus' => 'Save menus',
         'menus-updated' => 'Menus updated',
+        'db-updated' => 'Database updated',
         'pagebuilder-block-images' => 'Pagebuilder block thumbnails',
         'render-thumbs' => 'Render Thumbnails',
         'check-database' => 'Check database'

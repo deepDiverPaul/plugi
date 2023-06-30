@@ -45,6 +45,7 @@ return [
         'selected-theme' => 'Selected theme',
         'save-menus' => 'Save menus',
         'menus-updated' => 'Menus updated',
+        'db-updated' => 'Database updated',
         'pagebuilder-block-images' => 'Listado de bloques',
         'render-thumbs' => 'Mostrar Miniaturas',
         'check-database' => 'Check database'
