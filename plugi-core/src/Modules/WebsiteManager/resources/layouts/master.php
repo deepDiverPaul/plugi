@@ -14,6 +14,7 @@ if (isset($_GET['tab'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?= phpb_trans('website-manager.title') ?></title>
+    <link rel="icon" href="/plugi-core/dist/images/logo-color.png">
     <?= phpb_registered_assets('admin-header') ?>
     <link href="<?= phpb_asset('WebsiteManager.css') ?>" rel="stylesheet">
     <link href="<?= phpb_asset('icons/duotone/style.css') ?>" rel="stylesheet">
