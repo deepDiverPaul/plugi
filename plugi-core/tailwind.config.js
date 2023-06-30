@@ -26,7 +26,7 @@ module.exports = {
         },
       },"emerald","night",
     ],
-    darkTheme: "night",
+    // darkTheme: "night",
   }
 }
 

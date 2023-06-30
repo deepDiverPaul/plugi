@@ -144,6 +144,15 @@ class Plugi
                     $extConfig = include($configFile);
                     $extKey = $extConfig['identifier'];
                     Extensions::registerConfig($extKey, $extConfig);
+                    if(array_key_exists('assets', $extConfig) && is_array($extConfig['assets'])){
+                        foreach ($extConfig['assets'] as $asset) {
+                            Extensions::registerAsset(
+                                '/extensions/'.$extFolder.$asset['src'],
+                                $asset['type'],
+                                $asset['location'],
+                            );
+                        }
+                    }
                     if(array_key_exists('settings', $extConfig) && is_array($extConfig['settings'])){
                         Extensions::addSettings(array_map(function ($setting) use($extKey){
                             $setting['key'] = 'ext--' . $extKey . '--' . $setting['name'];
