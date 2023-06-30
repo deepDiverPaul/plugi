@@ -44,6 +44,8 @@ return [
         'save-settings' => 'Instellingen opslaan',
         'settings-updated' => 'Instellingen opgeslagen',
         'save-menus' => 'Save menus',
+        'create-menu' => 'Create menu',
+        'delete-menu' => 'Delete menu:',
         'menus-updated' => 'Menus updated',
         'db-updated' => 'Database updated',
         'pagebuilder-block-images' => 'Pagebuilder blok afbeeldingen',
