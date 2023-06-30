@@ -44,6 +44,8 @@ return [
         'admin-language' => 'Admin Language',
         'selected-theme' => 'Selected theme',
         'save-menus' => 'Save menus',
+        'create-menu' => 'Create menu',
+        'delete-menu' => 'Delete menu:',
         'menus-updated' => 'Menus updated',
         'db-updated' => 'Database updated',
         'pagebuilder-block-images' => 'Listado de bloques',

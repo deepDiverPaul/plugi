@@ -44,6 +44,8 @@ return [
         'save-settings' => 'Save settings',
         'settings-updated' => 'Settings successfully updated',
         'save-menus' => 'Save menus',
+        'create-menu' => 'Create menu',
+        'delete-menu' => 'Delete menu:',
         'menus-updated' => 'Menus updated',
         'db-updated' => 'Database updated',
         'pagebuilder-block-images' => 'Pagebuilder block thumbnails',

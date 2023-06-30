@@ -44,6 +44,8 @@ return [
         'save-settings' => 'Einstellungen speichern',
         'settings-updated' => 'Einstellungen aktualisiert',
         'save-menus' => 'Menus speichern',
+        'create-menu' => 'Menu erstellen',
+        'delete-menu' => 'Menu löschen:',
         'menus-updated' => 'Menus aktualisiert',
         'db-updated' => 'Datenbank aktualisiert',
         'pagebuilder-block-images' => 'Seiteneditor Vorschaubilder',
