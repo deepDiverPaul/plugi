@@ -4,6 +4,7 @@ namespace Plugi\Core;
 
 use Exception;
 use PDO;
+use Plugi\Extensions;
 
 /**
  * Class DB
@@ -157,8 +158,20 @@ class DB
         }
     }
 
-    public function diffDB() {
+    public function getDBDefinition() {
         $tables = include __DIR__.'/../../config/tables.php';
+        foreach (Extensions::getConfigs() as $extkey => $config){
+            if(key_exists('tables', $config)){
+                foreach ($config['tables'] as $table => $definition){
+                    $tables['ext__'.$extkey.'_'.$table] = $definition;
+                }
+            }
+        }
+        return $tables;
+    }
+
+    public function diffDB() {
+        $tables = $this->getDBDefinition();
         $diff = [];
 
         foreach ($tables as $table => $tableDefinition) {
