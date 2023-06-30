@@ -44,6 +44,13 @@ class WebsiteManager implements WebsiteManagerContract
             }
         }
 
+        if ($route === 'database') {
+            if ($action === 'update') {
+                $this->handleUpdateDB();
+                exit();
+            }
+        }
+
         if ($route === 'page_settings') {
             if ($action === 'create') {
                 $this->handleCreate();
@@ -152,6 +159,21 @@ class WebsiteManager implements WebsiteManagerContract
                     'message' => phpb_trans('website-manager.menus-updated')
                 ]);
             }
+        }
+    }
+
+    /**
+     * Handle requests for updating the website DB.
+     */
+    public function handleUpdateDB()
+    {
+        global $phpb_db;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $phpb_db->resolveDiffDB();
+            phpb_redirect(phpb_url('website_manager', ['tab' => 'info']), [
+                'message-type' => 'success',
+                'message' => phpb_trans('website-manager.db-updated')
+            ]);
         }
     }
 

@@ -45,8 +45,10 @@ return [
         'settings-updated' => 'Instellingen opgeslagen',
         'save-menus' => 'Save menus',
         'menus-updated' => 'Menus updated',
+        'db-updated' => 'Database updated',
         'pagebuilder-block-images' => 'Pagebuilder blok afbeeldingen',
         'render-thumbs' => 'Blok afbeeldingen genereren',
+        'check-database' => 'Check database'
     ],
     'pagebuilder' => [
         'filter-placeholder' => 'Filter',

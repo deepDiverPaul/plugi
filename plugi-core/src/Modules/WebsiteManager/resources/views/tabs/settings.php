@@ -7,18 +7,6 @@ $settingIns = phpb_instance('setting');
 
 <form method="post" action="<?= phpb_url('website_manager', ['route' => 'settings', 'action' => 'update', 'tab' => 'settings']) ?>">
 
-    <div class="max-w-lg mx-auto text-center">
-        <?php
-        if (phpb_flash('message')):
-        ?>
-        <div class="alert alert-<?= phpb_flash('message-type') ?> mb-6">
-            <i class="text-xl ph-duotone ph-info"></i>
-            <span><?= phpb_flash('message') ?></span>
-        </div>
-        <?php
-        endif;
-        ?>
-
         <div class="w-full mb-6">
             <div class="label-text text-left"><?= phpb_trans('website-manager.website-languages') ?></div>
             <?php
@@ -28,7 +16,6 @@ $settingIns = phpb_instance('setting');
                     <label class="label cursor-pointer">
                         <span class="label-text"><?= phpb_e($localeText) ?></span>
                         <input type="checkbox" name="languages[]" value="<?= phpb_e($locale) ?>" <?= phpb_e($settingIns::has('languages', $locale)) ? 'checked' : '' ?> class="checkbox checkbox-sm" />
-
                     </label>
                 </div>
             <?php
@@ -128,6 +115,5 @@ $settingIns = phpb_instance('setting');
 <!--        <a href="--><?php //= phpb_url('website_manager', ['route' => 'settings', 'action' => 'renderBlockThumbs']) ?><!--" class="btn btn-secondary btn-sm mr-1">-->
 <!--            --><?php //= phpb_trans('website-manager.render-thumbs') ?>
 <!--        </a>-->
-    </div>
 
 </form>

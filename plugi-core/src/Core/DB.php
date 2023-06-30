@@ -4,6 +4,7 @@ namespace Plugi\Core;
 
 use Exception;
 use PDO;
+use Plugi\Extensions;
 
 /**
  * Class DB
@@ -54,17 +55,25 @@ class DB
      */
     public function all(string $table, $columns = '*')
     {
-        if (is_array($columns)) {
-            foreach ($columns as &$column) {
-                $column = preg_replace('/[^a-zA-Z_]*/', '', $column);
+        try {
+            if (is_array($columns)) {
+                foreach ($columns as &$column) {
+                    $column = preg_replace('/[^a-zA-Z_]*/', '', $column);
+                }
+                $columns = implode(',', $columns);
+                $stmt = $this->pdo->prepare("SELECT {$columns} FROM {$table}");
+            } else {
+                $stmt = $this->pdo->prepare("SELECT * FROM {$table}");
             }
-            $columns = implode(',', $columns);
-            $stmt = $this->pdo->prepare("SELECT {$columns} FROM {$table}");
-        } else {
-            $stmt = $this->pdo->prepare("SELECT * FROM {$table}");
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (\PDOException $e) {
+            $_SESSION["phpb_flash"] = [
+                'message-type' => 'error',
+                'message' => phpb_trans('website-manager.check-database')
+            ];
+            return [];
         }
-        $stmt->execute();
-        return $stmt->fetchAll();
     }
 
     /**
@@ -109,36 +118,96 @@ class DB
     }
 
     function tableExists($table) {
-
-        // Try a select statement against the table
-        // Run it in try-catch in case PDO is in ERRMODE_EXCEPTION.
         try {
-            $result = $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+            $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+            return true;
         } catch (Exception $e) {
-            // We got an exception (table not found)
-            return FALSE;
+            return false;
         }
-
-        // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
-        return $result !== FALSE;
     }
 
-    /**
-     * Perform a custom query with user input data passed as $parameters.
-     *
-     * @param string $table
-     * @param string $sql
-     * @return bool
-     */
-    public function prepare(string $table, string $sql)
+    public function columnExists(string $table, string $column)
     {
         // check if table with the name $table exists. if not, execute $query.'
         try {
-            $result = $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
-            return TRUE;
+            $rs = $this->pdo->query("SELECT * FROM {$table} LIMIT 0");
+            for ($i = 0; $i < $rs->columnCount(); $i++) {
+                $col = $rs->getColumnMeta($i);
+                $columns[] = $col['name'];
+            }
+            if (in_array($column, $columns)) return true;
+            return false;
         } catch (Exception $e) {
-            $stmt = $this->pdo->prepare($sql);
-            return $stmt->execute();
+            return false;
+        }
+    }
+
+    public function uniqueKeyExists(string $table, string $key)
+    {
+        // check if table with the name $table exists. if not, execute $query.'
+        try {
+            $keys = $this->select(
+                "SELECT CONSTRAINT_NAME FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = ? AND TABLE_SCHEMA = 'plugi' AND TABLE_NAME = ? AND CONSTRAINT_TYPE = 'UNIQUE'",
+                [$key, $table]
+            );
+            if (count($keys) === 1) return true;
+            return false;
+        } catch (Exception $e) {
+            print_r($e->getMessage());
+            return false;
+        }
+    }
+
+    public function getDBDefinition() {
+        $tables = include __DIR__.'/../../config/tables.php';
+        foreach (Extensions::getConfigs() as $extkey => $config){
+            if(key_exists('tables', $config)){
+                foreach ($config['tables'] as $table => $definition){
+                    $tables['ext__'.$extkey.'_'.$table] = $definition;
+                }
+            }
+        }
+        return $tables;
+    }
+
+    public function diffDB() {
+        $tables = $this->getDBDefinition();
+        $diff = [];
+
+        foreach ($tables as $table => $tableDefinition) {
+            if ($this->tableExists($table) === false) {
+                $diff[$table] = false;
+            } else {
+                $diff[$table]['columns'] = [];
+                foreach ($tableDefinition['columns'] as $column => $columnDefinition) {
+                    if(!$this->columnExists($table, $column)) $diff[$table]['columns'][$column] = $columnDefinition;
+                }
+                $diff[$table]['uniqueKeys'] = [];
+                foreach ($tableDefinition['uniqueKeys'] as $key => $keyDefinition) {
+                    if(!$this->uniqueKeyExists($table, $key)) $diff[$table]['uniqueKeys'][$key] = '`'.implode('`,`', $keyDefinition).'`';
+                }
+            }
+
+        }
+
+        return $diff;
+    }
+
+    public function resolveDiffDB() {
+        $diff = $this->diffDB();
+        foreach ($diff  as $table => $tableDiff) {
+            if($tableDiff === false){
+                $this->query("CREATE TABLE {$table} (`id` int NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3");
+                $this->query("ALTER TABLE {$table} ADD PRIMARY KEY (`id`)");
+                $this->query("ALTER TABLE {$table} MODIFY `id` int NOT NULL AUTO_INCREMENT");
+            } elseif (is_array($tableDiff)) {
+                foreach ($tableDiff['columns'] as $column => $columnDefinition) {
+                    $this->query("ALTER TABLE {$table} ADD {$column} {$columnDefinition}");
+                }
+                foreach ($tableDiff['uniqueKeys'] as $key => $keyDefinition) {
+                    $this->query("ALTER TABLE {$table} ADD UNIQUE KEY {$key} ($keyDefinition)");
+                }
+            }
         }
     }
 }
