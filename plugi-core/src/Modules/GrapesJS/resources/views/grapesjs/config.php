@@ -101,6 +101,7 @@ return [
                 'extraAllowedContent' => '*(*);*[*];ul ol li span', // allows classes, inline styles and certain elements
                 //'enterMode' => 'CKEDITOR.ENTER_BR', // issues on pasting in Chromes
                 'extraPlugins' => 'sourcedialog',
+                'removePlugins' => 'exportpdf',
                 'toolbar' => [
                     ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'Link', 'Unlink', '-', 'Outdent', 'Indent', '-', 'Blockquote'],
                     '/',
