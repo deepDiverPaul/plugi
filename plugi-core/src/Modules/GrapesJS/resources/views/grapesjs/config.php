@@ -43,6 +43,7 @@ return [
         'label' => phpb_trans('pagebuilder.selector-manager.label'),
         'statesLabel' => phpb_trans('pagebuilder.selector-manager.states-label'),
         'selectedLabel' => phpb_trans('pagebuilder.selector-manager.selected-label'),
+
         'states' => [
             ['name' => 'hover', 'label' => phpb_trans('pagebuilder.selector-manager.state-hover')],
             ['name' => 'active', 'label' => phpb_trans('pagebuilder.selector-manager.state-active')],
@@ -97,15 +98,14 @@ return [
                 'startupFocus' => true,
                 'allowedContent' => true,
                 //'forcePasteAsPlainText' => false, // when true does not copy UL, random JS errors while pasting
-                //'extraAllowedContent' => '*(*);*[*];ul ol li span', // allows classes, inline styles and certain elements
+                'extraAllowedContent' => '*(*);*[*];ul ol li span', // allows classes, inline styles and certain elements
                 //'enterMode' => 'CKEDITOR.ENTER_BR', // issues on pasting in Chromes
                 'extraPlugins' => 'sourcedialog',
                 'toolbar' => [
-                    ['Bold', 'Italic', 'Underline', 'Strike', 'Undo', 'Redo'],
-                    ['Link', 'Unlink'],
-                    ['NumberedList', 'BulletedList'],
-                    ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-                    ['FontSize', 'TextColor'],
+                    ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'Link', 'Unlink', '-', 'Outdent', 'Indent', '-', 'Blockquote'],
+                    '/',
+                    ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+//                    ['FontSize', 'TextColor'],
                     ['Sourcedialog']
                 ],
             ]

@@ -21,19 +21,27 @@ class SettingRepository extends BaseRepository implements SettingRepositoryContr
      */
     public function updateSettings(array $data)
     {
-        $this->destroyAll();
-
 
         foreach ($data as $key => $value) {
             $isArray = is_array($value) ? 1 : 0;
             if ($isArray) {
                 $value = implode(',', $value);
             }
-            $this->create([
-                'setting' => $key,
-                'value' => $value,
-                'is_array' => $isArray,
-            ]);
+            $ins = $this->findWhere('setting', $key);
+            if (empty($ins)) {
+                $this->create([
+                    'setting' => $key,
+                    'value' => $value,
+                    'is_array' => $isArray,
+                ]);
+            } else {
+                $this->update($ins[0], [
+                    'setting' => $key,
+                    'value' => $value,
+                    'is_array' => $isArray,
+                ]);
+            }
+
         }
 
         return true;

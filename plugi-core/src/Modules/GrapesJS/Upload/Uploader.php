@@ -12,6 +12,7 @@ use Exception;
  * @version 0.6.2
  * @package Plugi\Modules\GrapesJS\Upload
  */
+#[\AllowDynamicProperties]
 class Uploader {
 
     /**

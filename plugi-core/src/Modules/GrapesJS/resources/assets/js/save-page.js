@@ -60,6 +60,7 @@
                     response = JSON.parse(response);
                     window.pageBlocks[newLanguage] = response.dynamicBlocks ? response.dynamicBlocks : {};
                     callback();
+                    window.setWaiting(false);
                 },
                 error: function(error) {
                     callback();

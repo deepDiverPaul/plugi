@@ -297,6 +297,9 @@ if (! function_exists('phpb_current_language')) {
                     return $languageCode;
                 }
             }
+            if ('/'.explode('?', $urlComponents[0])[0] === phpb_config('website_manager.url')) {
+                return phpb_config('general.language');
+            }
         }
         $languageCode = phpb_config('general.language');
         if (in_array($languageCode, array_keys(phpb_active_languages()))) {
@@ -321,6 +324,32 @@ if (! function_exists('phpb_in_module')) {
         $url = phpb_url($module, [], false);
         $currentUrl = explode('?', phpb_current_relative_url(), 2)[0];
         return $currentUrl === $url;
+    }
+}
+
+if (! function_exists('phpb_themes')) {
+    /**
+     * Return all theme configs.
+     *
+     * @return array
+     */
+    function phpb_themes()
+    {
+        $themes = [];
+
+        if (file_exists('themes') && is_dir('themes')) {
+            $themesDirectory = new DirectoryIterator('themes');
+            foreach ($themesDirectory as $entry) {
+                $themeFolder = $entry->getFilename();
+                $configFile = 'themes/' . $themeFolder . '/config.php';
+                if ($entry->isDir() && !$entry->isDot() && file_exists($configFile)) {
+                    $themeConfig = include($configFile);
+                    $themes[$themeFolder] = $themeConfig;
+                }
+            }
+        }
+
+        return $themes;
     }
 }
 

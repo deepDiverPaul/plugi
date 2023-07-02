@@ -20,6 +20,9 @@
     <script src="<?= phpb_asset('pagebuilder/bootstrap-select-v1.13.12.min.js') ?>"></script>
     <script src="<?= phpb_asset('pagebuilder/toastr-v2.1.3.min.js') ?>"></script>
     <script src="<?= phpb_asset('pagebuilder/beautify-html-v1.10.2.min.js') ?>"></script>
+    <link href="<?= phpb_asset('icons/duotone/style.css') ?>" rel="stylesheet">
+    <link href="<?= phpb_asset('icons/regular/style.css') ?>" rel="stylesheet">
+    <link href="<?= phpb_asset('icons/bold/style.css') ?>" rel="stylesheet">
     <?= $pageBuilder->customScripts('head'); ?>
 </head>
 

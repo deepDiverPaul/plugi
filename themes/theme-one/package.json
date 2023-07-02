@@ -12,7 +12,8 @@
       "patterns": [
         "src",
         "blocks",
-        "layouts"
+        "layouts",
+        "pages"
       ],
       "extensions": "ts,html,php",
       "quiet": false

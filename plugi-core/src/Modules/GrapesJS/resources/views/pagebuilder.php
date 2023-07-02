@@ -53,6 +53,7 @@ window.renderLanguageVariantUrl = '<?= phpb_url('pagebuilder', ['action' => 'ren
 $config = require __DIR__ . '/grapesjs/config.php';
 ?>
 let config = <?= json_encode($config) ?>;
+config.selectorManager.escapeName = name => `${name}`.trim().replace(/([^a-z0-9\w-\:\/]+)/gi, '-')
 if (window.customConfig !== undefined) {
     config = $.extend(true, {}, window.customConfig, config);
 }

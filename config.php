@@ -10,7 +10,8 @@ return [
      |
      */
     'general' => [
-        'base_url' => 'http://localhost:63000',
+//        'base_url' => 'http://localhost:63000',
+        'base_url' => 'https://pagebuilder.dev.onlineer.de',
         'language' => 'de',
         'assets_url' => '/plugi-core/dist',
         'uploads_url' => '/uploads'

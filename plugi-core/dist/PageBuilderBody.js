@@ -437,7 +437,7 @@ window.switchLanguage = function(t, e) {
         language: t
       },
       success: function(n) {
-        n = JSON.parse(n), window.pageBlocks[t] = n.dynamicBlocks ? n.dynamicBlocks : {}, e();
+        n = JSON.parse(n), window.pageBlocks[t] = n.dynamicBlocks ? n.dynamicBlocks : {}, e(), window.setWaiting(!1);
       },
       error: function(n) {
         e(), console.log(n);

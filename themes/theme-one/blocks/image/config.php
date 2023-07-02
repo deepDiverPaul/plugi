@@ -2,6 +2,6 @@
 
 return [
     'title' => 'image',
-    'category' => 'General',
+    'hidden' => true,
     'icon' => 'fa fa-hand-peace-o'
 ];

@@ -174,6 +174,7 @@ class Plugi
     {
         global $phpb_config;
         $phpb_config = $config;
+
     }
 
     /**
@@ -184,7 +185,12 @@ class Plugi
     public function setDatabaseConnection(array $config)
     {
         global $phpb_db;
+        global $phpb_config;
         $phpb_db = new DB($config);
+        $theme = Setting::get('selected_theme');
+        if ($theme) $phpb_config['theme']['active_theme'] = $theme;
+        $language = Setting::get('admin_language');
+        if ($language) $phpb_config['general']['language'] = $language;
     }
 
     /**
@@ -337,7 +343,10 @@ class Plugi
             return true;
         }
         header("HTTP/1.1 404 Not Found");
-        die('Plugi page not found. Check your URL: <b>' . phpb_e(phpb_full_url(phpb_current_relative_url())) . '</b>');
+        $message = 'Plugi page not found. Check your URL: <b>' . phpb_e(phpb_full_url(phpb_current_relative_url())) . '</b>';
+        $errorPage = __DIR__ . '/../..' . phpb_config('theme.folder_url') . '/' . phpb_config('theme.active_theme') . '/pages/404.php';
+        if (file_exists($errorPage)) $message = include $errorPage;
+        die($message);
     }
 
     /**
