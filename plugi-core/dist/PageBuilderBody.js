@@ -495,8 +495,8 @@ function I(t) {
 function z(t, e) {
   if (!t)
     return e;
-  let i = JSON.stringify(window.pageBlocks), n = "\\.ID(.*?){(.*?)}";
-  return t.match(new RegExp(n, "g")).forEach(function(s) {
+  let i = JSON.stringify(window.pageBlocks), n = "\\.ID(.*?){(.*?)}", a = t.match(new RegExp(n, "g"));
+  return a && a.forEach(function(s) {
     let l = s.split("{")[0], r = l.replace(".", " ").trim();
     e.indexOf(l) === -1 && i.indexOf(r) >= 0 && (e += s);
   }), e;

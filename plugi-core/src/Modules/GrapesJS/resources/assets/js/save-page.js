@@ -189,6 +189,9 @@
         let pageBlocksString = JSON.stringify(window.pageBlocks);
         let regex = "\\.ID(.*?){(.*?)}"
         let matches = existingCss.match(new RegExp(regex, 'g'));
+        if (! matches) {
+            return newCss;
+        }
         matches.forEach(function(css) {
             let selector = css.split('{')[0];
             let pageBlocksStringSelector = selector.replace('.', ' ').trim();
