@@ -384,7 +384,7 @@ function J(t) {
 function p(t) {
   let e = !1;
   t.getClasses().forEach((i) => {
-    i.startsWith("ID") && i.length === 16 && (e = i);
+    i.startsWith("ID") && i.length >= 16 && (e = i);
   }), t.attributes["style-identifier"] === void 0 && (t.attributes["style-identifier"] = e || D()), t.addClass(t.attributes["style-identifier"]);
 }
 function j(t) {
