@@ -150,6 +150,7 @@
     function saveCurrentTranslationLocally(callback) {
         // use timeout to ensure the waiting spinner is fully displayed before the page briefly freezes due to high JS workload
         setTimeout(function() {
+            let existingCss = window.pageData['css'] ? window.pageData['css'] : window.initialCss;
             window.pageData = {
                 html: [],
                 components: [],
@@ -162,7 +163,7 @@
             window.editor.getWrapper().find("[phpb-content-container]").forEach((container, index) => {
                 let data = getContainerContentInStorageFormat(container);
 
-                window.pageData['css'] = data.css;
+                window.pageData['css'] = mergeCss(existingCss, data.css);
                 window.pageData['style'] = data.style;
                 window.pageData['html'][index] = data.html;
                 window.pageData['components'][index] = data.components;
@@ -175,6 +176,45 @@
                 callback();
             }
         }, 200);
+    }
+
+    /**
+     * Add all selectors from existingCss that are missing in newCss.
+     * Backwards compatibility fix: losing CSS due to having different block style identifiers for different languages.
+     */
+    function mergeCss(existingCss, newCss) {
+        if (! existingCss) {
+            return newCss;
+        }
+        let pageBlocksString = JSON.stringify(window.pageBlocks);
+        let regex = "\\.ID(.*?){(.*?)}"
+        let matches = existingCss.match(new RegExp(regex, 'g'));
+        matches.forEach(function(css) {
+            let selector = css.split('{')[0];
+            let pageBlocksStringSelector = selector.replace('.', ' ').trim();
+            if (newCss.indexOf(selector) === -1 && pageBlocksString.indexOf(pageBlocksStringSelector) >= 0) {
+                newCss += css;
+            }
+        });
+        return newCss;
+    }
+
+    /**
+     * Remove the style selectors that are no longer present among the current page blocks.
+     */
+    function removeOldStyleSelectors(styleComponents) {
+        let pageBlocksString = JSON.stringify(window.pageBlocks);
+
+        let updatedStyleComponents = [];
+        styleComponents.forEach(styleComponent => {
+            if (styleComponent.attributes.selectors.models.length) {
+                let selector = styleComponent.attributes.selectors.models[0].id;
+                if (pageBlocksString.includes(selector)) {
+                    updatedStyleComponents.push(styleComponent);
+                }
+            }
+        });
+        return updatedStyleComponents;
     }
 
     /**
@@ -193,7 +233,7 @@
             });
 
             let data = window.pageData;
-            data.style = removeOldStyleSelectors(data.css, data.style);
+            data.style = removeOldStyleSelectors(data.style);
             data.blocks = window.pageBlocks;
 
             $.ajax({
@@ -220,24 +260,6 @@
                 }
             });
         });
-    }
-
-    /**
-     * Remove the style selectors that are not present in the given CSS string.
-     */
-    function removeOldStyleSelectors(css, styleComponents) {
-        let updatedStyleComponents = [];
-
-        styleComponents.forEach(styleComponent => {
-            if (styleComponent.attributes.selectors.models.length) {
-                let selector = styleComponent.attributes.selectors.models[0].id;
-                if (css.includes(selector)) {
-                    updatedStyleComponents.push(styleComponent);
-                }
-            }
-        });
-
-        return updatedStyleComponents;
     }
 
     /**

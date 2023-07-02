@@ -29,14 +29,14 @@ function y() {
 function S() {
   window.editor.trigger("change:canvasOffset canvasScroll");
 }
-let b = !1;
+let g = !1;
 $(document).keydown(function(t) {
-  t.which === 8 && (b = !0);
+  t.which === 8 && (g = !0);
 }).keyup(function(t) {
-  t.which === 8 && (b = !1);
+  t.which === 8 && (g = !1);
 });
 $(window).on("beforeunload", function(t) {
-  b && t.preventDefault();
+  g && t.preventDefault();
 });
 function A() {
   $(".gjs-blocks-cs").prepend($("#block-search"));
@@ -93,11 +93,11 @@ window.editor.on("sorter:drag:end", function(t) {
     CKEDITOR.instances[i].destroy(!0);
 });
 window.runScriptsOfComponentAndChildren = function(t) {
-  H(t), t.components().each(function(e) {
+  x(t), t.components().each(function(e) {
     runScriptsOfComponentAndChildren(e);
   });
 };
-function H(t) {
+function x(t) {
   let e = t.attributes["block-id"];
   if (e === void 0 && (e = t.attributes.attributes.id), e && window.customBuilderScripts[e] !== void 0) {
     let i = t.attributes["style-identifier"], n = $("<container>").append(window.customBuilderScripts[e]);
@@ -106,8 +106,8 @@ function H(t) {
     a.type = "text/javascript", a.innerHTML = n.find("script").html(), window.editor.Canvas.getDocument().body.appendChild(a);
   }
 }
-function R() {
-  x();
+function H() {
+  R();
   let t = document.createElement("script");
   t.type = "text/javascript", t.src = window.injectionScriptUrl;
   let e = t.outerHTML + "<script>" + h.toString() + h.name + "()<\/script>";
@@ -129,7 +129,7 @@ function h() {
     }
   }
 }
-function x() {
+function R() {
   for (let t in window.themeBlocks) {
     let e = window.themeBlocks[t], i = $("<container>").append(e.content);
     i.find("[phpb-blocks-container]").each(function() {
@@ -169,7 +169,7 @@ function v(t) {
   "phpb-content-container" in t.attributes.attributes || (j(t), t.get("components").each((e) => v(e)));
 }
 window.editor.on("component:selected", function(t) {
-  m(t) ? $(".gjs-pn-buttons .gjs-pn-btn:nth-of-type(2)").click() : t.get("type") === "" && T(t) && ($(".gjs-pn-buttons .gjs-pn-btn:nth-of-type(3)").click(), $("#gjs-sm-position").hasClass("gjs-sm-open") && $("#gjs-sm-position").find(".gjs-sm-title").click(), $("#gjs-sm-background").hasClass("gjs-sm-open") || $("#gjs-sm-background").find(".gjs-sm-title").click()), m(t) || setTimeout(function() {
+  m(t) ? $(".gjs-pn-buttons .gjs-pn-btn:nth-of-type(2)").click() : t.get("type") === "" && B(t) && ($(".gjs-pn-buttons .gjs-pn-btn:nth-of-type(3)").click(), $("#gjs-sm-position").hasClass("gjs-sm-open") && $("#gjs-sm-position").find(".gjs-sm-title").click(), $("#gjs-sm-background").hasClass("gjs-sm-open") || $("#gjs-sm-background").find(".gjs-sm-title").click()), m(t) || setTimeout(function() {
     $(".gjs-trt-traits").html('<p class="no-settings">' + window.translations["trait-manager"]["no-settings"] + "</p>");
   }, 0), setTimeout(function() {
     t.attributes.removable || $(".gjs-toolbar .fa-trash-o.gjs-toolbar-item").hide(), t.attributes.copyable || $(".gjs-toolbar .fa-clone.gjs-toolbar-item").hide(), t.attributes.draggable || $(".gjs-toolbar .fa-arrows.gjs-toolbar-item").hide(), !t.attributes.removable && !t.attributes.copyable && !t.attributes.draggable && window.editor.select(t.parent());
@@ -181,12 +181,12 @@ window.editor.on("component:selected", function(t) {
   }, 0);
 });
 window.editor.on("component:clone", function(t) {
-  if (!g) {
+  if (!b) {
     let e = window.editor.getWrapper().find("." + t.attributes["style-identifier"])[0];
     t.attributes["style-identifier"] !== void 0 && t.attributes["style-identifier"] !== "" && (t.removeClass(t.attributes["style-identifier"]), delete t.attributes["style-identifier"], p(t)), t.attributes["block-id"] = t.attributes["block-slug"], e && window.customBuilderScripts[e.attributes["block-id"]] !== void 0 && (t.attributes["run-builder-script"] = e.attributes["block-id"]);
   }
 });
-function T(t) {
+function B(t) {
   let e = !1, i = t.getEl();
   if (i && i.style) {
     let n = window.getComputedStyle(i);
@@ -229,7 +229,7 @@ function d(t) {
           n = t.replaceWith({ tagName: "div" }), n.attributes["is-style-wrapper"] = !0, i.components().each(function(s) {
             n.append(cloneComponent(s));
           });
-    }), t.remove(), B(i, n, !0, !1), U(n), d(n);
+    }), t.remove(), E(i, n, !0, !1), J(n), d(n);
   } else
     t.components().each(function(e) {
       d(e);
@@ -248,7 +248,7 @@ function P(t) {
   let l = {};
   return s !== void 0 && s.settings !== void 0 && s.settings.attributes !== void 0 && (l = s.settings.attributes), l;
 }
-function U(t) {
+function J(t) {
   if (window.blockSettings[t.attributes["block-slug"]] === void 0)
     return;
   t.attributes.settings = {};
@@ -299,20 +299,20 @@ function c(t, e) {
       return i = a, !1;
   }), i;
 }
-let g = !1;
+let b = !1;
 window.cloneComponent = function(t) {
-  g = !0;
+  b = !0;
   let e = t.clone();
-  return E(t, e), g = !1, e;
+  return T(t, e), b = !1, e;
 };
-function E(t, e) {
-  B(t, e, !1, !0);
+function T(t, e) {
+  E(t, e, !1, !0);
   for (let i = 0; i < t.components().length; i++) {
     let n = t.components().models[i], a = e.components().models[i];
-    E(n, a);
+    T(n, a);
   }
 }
-function B(t, e, i, n) {
+function E(t, e, i, n) {
   let a = t.attributes.attributes;
   for (let s in a)
     n && (e.attributes.attributes[s] = a[s]), i && (e.attributes[s] = a[s]);
@@ -344,7 +344,7 @@ function u(t, e = !1, i = !0) {
     t.set({ editable: !0 });
     return;
   }
-  if (i && (J(t), t.attributes["made-text-editable"] === "true")) {
+  if (i && (U(t), t.attributes["made-text-editable"] === "true")) {
     t.attributes.attributes["data-raw-content"] = "true";
     let n = t.replaceWith(t.toHTML());
     ["block-id", "block-slug", "is-html", "style-identifier"].forEach((a) => {
@@ -354,7 +354,7 @@ function u(t, e = !1, i = !0) {
   }
   t.get("components").each((n) => u(n, e, i));
 }
-function J(t) {
+function U(t) {
   let e = t.get("tagName"), i = [
     //'div','span', // needed for editable bootstrap alert, but cannot be used since divs (block containers) then cannot be removed
     "h1",
@@ -379,7 +379,7 @@ function J(t) {
   ], n = [
     "img"
   ], a = {};
-  "phpb-blocks-container" in t.attributes.attributes && (a.hoverable = !0, a.selectable = !0, a.droppable = !0), i.includes(e) || "phpb-editable" in t.attributes.attributes ? (a.editable = !0, t.attributes["made-text-editable"] = "true") : n.includes(e) && (a.editable = !0), T(t) && (a.hoverable = !0, a.selectable = !0, a.stylable = !0), e === "a" && (a.hoverable = !0, a.selectable = !0, a.stylable = !0, a.removable = !0), $.isEmptyObject(a) || (t.set(a), a.stylable !== void 0 && a.stylable && p(t));
+  "phpb-blocks-container" in t.attributes.attributes && (a.hoverable = !0, a.selectable = !0, a.droppable = !0), i.includes(e) || "phpb-editable" in t.attributes.attributes ? (a.editable = !0, t.attributes["made-text-editable"] = "true") : n.includes(e) && (a.editable = !0), B(t) && (a.hoverable = !0, a.selectable = !0, a.stylable = !0), e === "a" && (a.hoverable = !0, a.selectable = !0, a.stylable = !0, a.removable = !0), $.isEmptyObject(a) || (t.set(a), a.stylable !== void 0 && a.stylable && p(t));
 }
 function p(t) {
   let e = !1;
@@ -407,10 +407,10 @@ let F = 0;
 function D() {
   return "ID" + (Date.now().toString(36) + Math.random().toString(36).substr(2, 5) + F++).toUpperCase();
 }
-function L() {
-  window.grapesJSLoaded ? R() : setTimeout(L, 100);
+function O() {
+  window.grapesJSLoaded ? H() : setTimeout(O, 100);
 }
-L();
+O();
 window.pageData = {};
 window.changesOffset = 0;
 window.onbeforeunload = K;
@@ -419,15 +419,15 @@ function K() {
     return "Are you sure? There are unsaved changes.";
 }
 $("#save-page").click(function() {
-  W();
+  N();
 });
 $(document).bind("keydown", function(t) {
   if (t.ctrlKey && t.which === 83)
-    return window.editor.store(), W(), t.preventDefault(), !1;
+    return window.editor.store(), N(), t.preventDefault(), !1;
 });
 window.switchLanguage = function(t, e) {
   window.setWaiting(!0), I(function() {
-    O(t);
+    L(t);
     let i = window.pageData;
     i.blocks = { [t]: window.pageBlocks[t] }, $.ajax({
       type: "POST",
@@ -447,7 +447,7 @@ window.switchLanguage = function(t, e) {
     });
   });
 };
-function O(t) {
+function L(t) {
   let e = window.pageBlocks[t], i = window.pageBlocks[window.currentLanguage];
   if (e === void 0)
     e = i;
@@ -480,24 +480,43 @@ function q(t, e) {
 }
 function I(t) {
   setTimeout(function() {
+    let e = window.pageData.css ? window.pageData.css : window.initialCss;
     window.pageData = {
       html: [],
       components: [],
       css: null,
       style: null
-    }, window.pageBlocks[window.currentLanguage] = [], window.editor.getWrapper().find("[phpb-content-container]").forEach((e, i) => {
-      let n = N(e);
-      window.pageData.css = n.css, window.pageData.style = n.style, window.pageData.html[i] = n.html, window.pageData.components[i] = n.components, window.pageBlocks[window.currentLanguage] = { ...window.pageBlocks[window.currentLanguage], ...n.blocks }, window.contentContainerComponents[i] = n.components;
+    }, window.pageBlocks[window.currentLanguage] = [], window.editor.getWrapper().find("[phpb-content-container]").forEach((i, n) => {
+      let a = W(i);
+      window.pageData.css = z(e, a.css), window.pageData.style = a.style, window.pageData.html[n] = a.html, window.pageData.components[n] = a.components, window.pageBlocks[window.currentLanguage] = { ...window.pageBlocks[window.currentLanguage], ...a.blocks }, window.contentContainerComponents[n] = a.components;
     }), t && t();
   }, 200);
 }
-function W() {
+function z(t, e) {
+  if (!t)
+    return e;
+  let i = JSON.stringify(window.pageBlocks), n = "\\.ID(.*?){(.*?)}";
+  return t.match(new RegExp(n, "g")).forEach(function(s) {
+    let l = s.split("{")[0], r = l.replace(".", " ").trim();
+    e.indexOf(l) === -1 && i.indexOf(r) >= 0 && (e += s);
+  }), e;
+}
+function G(t) {
+  let e = JSON.stringify(window.pageBlocks), i = [];
+  return t.forEach((n) => {
+    if (n.attributes.selectors.models.length) {
+      let a = n.attributes.selectors.models[0].id;
+      e.includes(a) && i.push(n);
+    }
+  }), i;
+}
+function N() {
   f(), I(function() {
     $.each(window.languages, (e, i) => {
-      e !== window.currentLanguage && O(e);
+      e !== window.currentLanguage && L(e);
     });
     let t = window.pageData;
-    t.style = z(t.css, t.style), t.blocks = window.pageBlocks, $.ajax({
+    t.style = G(t.style), t.blocks = window.pageBlocks, $.ajax({
       type: "POST",
       url: $("#save-page").data("url"),
       data: {
@@ -516,15 +535,6 @@ function W() {
     });
   });
 }
-function z(t, e) {
-  let i = [];
-  return e.forEach((n) => {
-    if (n.attributes.selectors.models.length) {
-      let a = n.attributes.selectors.models[0].id;
-      t.includes(a) && i.push(n);
-    }
-  }), i;
-}
 window.getComponentDataInStorageFormat = function(t) {
   let e = window.cloneComponent(t.parent());
   console.log({
@@ -537,12 +547,12 @@ window.getComponentDataInStorageFormat = function(t) {
   }), console.log({
     containerL: e.get("components").length,
     componentParentL: t.parent().get("components").length
-  }), N(e);
+  }), W(e);
 };
-function N(t) {
+function W(t) {
   let e = window.editor.DomComponents.componentsById;
   window.editor.DomComponents.componentsById = [], t = window.cloneComponent(t);
-  let i = M(t).blocks, n = window.html_beautify(G(t)), a = window.editor.getCss(), s = window.editor.getStyle(), l = JSON.parse(JSON.stringify(t.get("components")));
+  let i = M(t).blocks, n = window.html_beautify(Q(t)), a = window.editor.getCss(), s = window.editor.getStyle(), l = JSON.parse(JSON.stringify(t.get("components")));
   return window.editor.DomComponents.componentsById = e, {
     html: n,
     css: a,
@@ -551,7 +561,7 @@ function N(t) {
     style: s
   };
 }
-function G(t) {
+function Q(t) {
   let e = "";
   t.get("components").forEach((n) => e += n.toHTML());
   let i = $("<container>" + e + "</container>");
@@ -612,9 +622,9 @@ function M(t, e = !1, i = !1) {
   }
   return n;
 }
-let Q = 0;
+let X = 0;
 function C() {
-  return "ID" + (Date.now().toString(36) + Math.random().toString(36).substr(2, 5) + Q++).toUpperCase();
+  return "ID" + (Date.now().toString(36) + Math.random().toString(36).substr(2, 5) + X++).toUpperCase();
 }
 window.setWaiting = function(t) {
   let e = window.editor.DomComponents.getWrapper();
