@@ -5,6 +5,8 @@ namespace Plugi\Core;
 use Exception;
 use PDO;
 use Plugi\Extensions;
+use Plugi\Repositories\SettingRepository;
+use Plugi\Setting;
 
 /**
  * Class DB
@@ -170,6 +172,10 @@ class DB
         return $tables;
     }
 
+    public function getDBDefinitionHash() {
+        return sha1(json_encode($this->getDBDefinition()));
+    }
+
     public function diffDB() {
         $tables = $this->getDBDefinition();
         $diff = [];
@@ -209,5 +215,7 @@ class DB
                 }
             }
         }
+        $settingRepository = new SettingRepository;
+        $settingRepository->updateSettings(['db-definition' => $this->getDBDefinitionHash()]);
     }
 }

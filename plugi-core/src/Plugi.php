@@ -67,9 +67,14 @@ class Plugi
 
         $this->setConfig($config);
 
+        // load extensions
+        $this->loadExtensions();
+
         // create database connection, if enabled
         if (phpb_config('storage.use_database')) {
             $this->setDatabaseConnection(phpb_config('storage.database'));
+            $this->checkDatabaseDefinition();
+            $this->hydrateConfig();
         }
 
         // init the default authentication, if enabled
@@ -91,9 +96,6 @@ class Plugi
         ]);
 
         $this->router = phpb_instance('router');
-
-        // load extensions
-        $this->loadExtensions();
 
         // load translations in the language that is currently active
         $this->loadTranslations(phpb_current_language());
@@ -191,6 +193,45 @@ class Plugi
         if ($theme) $phpb_config['theme']['active_theme'] = $theme;
         $language = Setting::get('admin_language');
         if ($language) $phpb_config['general']['language'] = $language;
+    }
+
+    /**
+     * Set the Plugi database connection using the given array.
+     *
+     * @param array $config
+     */
+    public function hydrateConfig()
+    {
+        global $phpb_config;
+        $theme = Setting::get('selected_theme');
+        if ($theme) $phpb_config['theme']['active_theme'] = $theme;
+        $language = Setting::get('admin_language');
+        if ($language) $phpb_config['general']['language'] = $language;
+    }
+
+    /**
+     * Set the Plugi database connection using the given array.
+     *
+     * @param array $config
+     */
+    public function checkDatabaseDefinition()
+    {
+        global $phpb_db;
+        if (Setting::get('db-definition') !== $phpb_db->getDBDefinitionHash()) {
+            $module = 'website_manager';
+            $parameters = [
+                ['tab' => 'info'],
+                ['route' => 'database', 'action' => 'update']
+            ];
+            if(!phpb_on_url($module, $parameters[0])) {
+                if(!phpb_on_url($module, $parameters[1])) {
+                    phpb_redirect(phpb_url($module, $parameters[0]), [
+                        'message-type' => 'error',
+                        'message' => phpb_trans('website-manager.check-database')
+                    ]);
+                }
+            }
+        }
     }
 
     /**

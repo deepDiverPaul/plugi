@@ -1,3 +1,8 @@
+<?php
+
+use Plugi\Setting;
+
+?>
 <div class="overflow-x-auto">
     <table class="table table-zebra">
         <tbody>
@@ -8,13 +13,15 @@
         <tr>
             <th class="w-60">Database</th>
             <td>
-                <form method="post" action="<?= phpb_url('website_manager', ['route' => 'database', 'action' => 'update', 'tab' => 'info']) ?>">
+                <form method="post" action="<?= phpb_url('website_manager', ['route' => 'database', 'action' => 'update']) ?>">
                 <?php
                 global $phpb_db;
                 $diff = $phpb_db->diffDB();
                 $actionNeeded = false;
+                if (Setting::get('db-definition') !== $phpb_db->getDBDefinitionHash()) $actionNeeded = true;
                 foreach ($diff as $table => $tableDiff) :
                     if(!is_array($tableDiff)) $actionNeeded = true;
+                    if(is_array($tableDiff) && empty($tableDiff['columns']) && empty($tableDiff['uniqueKeys'])) continue;
                 ?>
                 <div>
                     table <strong><?= phpb_e($table) ?></strong> (<?= phpb_e(is_array($tableDiff) ? (empty($tableDiff['columns']) && empty($tableDiff['uniqueKeys']) ? 'is fine' : 'has diff') : 'is not existent') ?>)
@@ -48,6 +55,10 @@
                     if ($actionNeeded) :
                     ?>
                     <button class="btn" type="submit">Update</button>
+                    <?php
+                    else :
+                    ?>
+                    <div>Database is up-to-date! <span class="text-gray-400">(<?= $phpb_db->getDBDefinitionHash() ?>)</span></div>
                     <?php
                     endif;
                     ?>
