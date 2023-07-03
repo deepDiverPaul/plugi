@@ -4,7 +4,7 @@
         <th class="w-5">ID</th>
         <th><?= phpb_trans('website-manager.name') ?></th>
         <th><?= phpb_trans('website-manager.route') ?></th>
-        <th class="w-44"><?= phpb_trans('website-manager.actions') ?></th>
+        <th class="w-36 md:w-44"><?= phpb_trans('website-manager.actions') ?></th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
                 <a href="<?= phpb_e(phpb_full_url($page->getRoute())) ?>" title="<?= phpb_trans('website-manager.view') ?>" target="_blank" class="btn btn-light btn-outline btn-sm btn-circle">
                     <i class="text-xl ph-duotone ph-eye"></i>
                 </a>
-                <a href="<?= phpb_url('pagebuilder', ['page' => $page->getId()]) ?>" class="btn btn-primary btn-sm btn-circle" title="<?= phpb_trans('website-manager.edit') ?>">
+                <a href="<?= phpb_url('pagebuilder', ['page' => $page->getId()]) ?>" class="btn btn-primary hidden md:inline-flex btn-sm btn-circle" title="<?= phpb_trans('website-manager.edit') ?>">
                     <i class="text-xl ph-duotone ph-pencil-line"></i>
                 </a>
                 <a href="<?= phpb_url('website_manager', ['route' => 'page_settings', 'action' => 'edit', 'page' => $page->getId()]) ?>" title="<?= phpb_trans('website-manager.settings') ?>" class="btn btn-secondary btn-sm btn-circle">

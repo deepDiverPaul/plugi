@@ -7,11 +7,11 @@ use Plugi\Setting;
     <table class="table table-zebra">
         <tbody>
         <tr>
-            <th class="w-60">PHP Version</th>
+            <th class="w-36 md:w-60">PHP Version</th>
             <td><?= phpversion() ?></td>
         </tr>
         <tr>
-            <th class="w-60">Database</th>
+            <th>Database</th>
             <td>
                 <form method="post" action="<?= phpb_url('website_manager', ['route' => 'database', 'action' => 'update']) ?>">
                 <?php
@@ -58,7 +58,7 @@ use Plugi\Setting;
                     <?php
                     else :
                     ?>
-                    <div>Database is up-to-date! <span class="text-gray-400">(<?= $phpb_db->getDBDefinitionHash() ?>)</span></div>
+                    <div>Database is up-to-date. <span class="hidden md:inline text-gray-400">(<?= $phpb_db->getDBDefinitionHash() ?>)</span></div>
                     <?php
                     endif;
                     ?>
