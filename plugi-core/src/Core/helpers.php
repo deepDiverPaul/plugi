@@ -1,5 +1,6 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
 use Plugi\Extensions;
 
 if (! function_exists('phpb_e')) {
@@ -10,7 +11,7 @@ if (! function_exists('phpb_e')) {
      * @param bool $doubleEncode
      * @return string
      */
-    function phpb_e($value, $doubleEncode = true)
+    function phpb_e(string $value, bool $doubleEncode = true): string
     {
         return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', $doubleEncode);
     }
@@ -20,11 +21,11 @@ if (! function_exists('phpb_encode_or_null')) {
     /**
      * Encode HTML special characters in a string, but preserve a null value if the passed input equals null.
      *
-     * @param string $value
+     * @param string|null $value
      * @param bool $doubleEncode
-     * @return string
+     * @return string|null
      */
-    function phpb_encode_or_null($value, $doubleEncode = true)
+    function phpb_encode_or_null(?string $value, bool $doubleEncode = true): ?string
     {
         return is_null($value) ? null : phpb_e($value, $doubleEncode);
     }
@@ -37,11 +38,11 @@ if (! function_exists('phpb_asset')) {
      * @param string $path
      * @return string
      */
-    function phpb_asset($path)
+    function phpb_asset(string $path): string
     {
         $basePath = __DIR__ . '/../../dist/';
         $distPath = realpath($basePath . $path);
-        $version = ($distPath && strpos($distPath, realpath($basePath)) === 0) ? filemtime($distPath) : '';
+        $version = ($distPath && str_starts_with($distPath, realpath($basePath))) ? filemtime($distPath) : '';
         return phpb_full_url(phpb_config('general.assets_url') . '/' . $path) . '?v=' . $version;
     }
 }
@@ -53,7 +54,7 @@ if (! function_exists('phpb_theme_asset')) {
      * @param string $path
      * @return string
      */
-    function phpb_theme_asset($path)
+    function phpb_theme_asset(string $path): string
     {
         $themeFolder = phpb_config('theme.folder_url') . '/' . phpb_config('theme.active_theme');
         return phpb_full_url($themeFolder . '/' . $path);
@@ -68,12 +69,12 @@ if (! function_exists('phpb_flash')) {
      * @param bool $encode
      * @return bool|mixed
      */
-    function phpb_flash($key, $encode = true)
+    function phpb_flash($key, bool $encode = true): mixed
     {
         global $phpb_flash;
 
         // if no dot notation is used, return first dimension value or empty string
-        if (strpos($key, '.') === false) {
+        if (!str_contains($key, '.')) {
             if (! isset($phpb_flash[$key])) {
                 return false;
             }
@@ -109,12 +110,12 @@ if (! function_exists('phpb_config')) {
      * @param string $key
      * @return mixed
      */
-    function phpb_config($key)
+    function phpb_config(string $key): mixed
     {
         global $phpb_config;
 
         // if no dot notation is used, return first dimension value or empty string
-        if (strpos($key, '.') === false) {
+        if (!str_contains($key, '.')) {
             return $phpb_config[$key] ?? '';
         }
 
@@ -137,16 +138,16 @@ if (! function_exists('phpb_trans')) {
     /**
      * Return the translation of the given key (as dot-separated multidimensional array selector).
      *
-     * @param $key
+     * @param string $key
      * @param array $parameters
      * @return string|array
      */
-    function phpb_trans($key, $parameters = [])
+    function phpb_trans(string $key, array $parameters = []): array|string
     {
         global $phpb_translations;
 
         // if no dot notation is used, return first dimension value or empty string
-        if (strpos($key, '.') === false) {
+        if (!str_contains($key, '.')) {
             return phpb_replace_placeholders($phpb_translations[$key] ?? '', $parameters);
         }
 
@@ -176,12 +177,13 @@ if (! function_exists('phpb_replace_placeholders')) {
     /**
      * Replace in the given string the given parameter placeholders with corresponding values.
      *
-     * @param $string
+     * @param string $string
      * @param array $parameters
      * @return string
      */
-    function phpb_replace_placeholders($string, $parameters = [])
+    function phpb_replace_placeholders($string, array $parameters = [])
     {
+        // TODO adapt for given array
         foreach ($parameters as $placeholder => $value) {
             $string = str_replace(':' . $placeholder, $value, $string);
         }
@@ -193,14 +195,11 @@ if (! function_exists('phpb_replace_placeholders')) {
 if (! function_exists('phpb_full_url')) {
     /**
      * Give the full URL of a given URL which is relative to the base URL.
-     *
-     * @param string $urlRelativeToBaseUrl
-     * @return string
      */
-    function phpb_full_url($urlRelativeToBaseUrl)
+    function phpb_full_url(string $urlRelativeToBaseUrl): string
     {
         // if the URL is already a full URL, do not alter the URL
-        if (strpos($urlRelativeToBaseUrl, 'http://') === 0 || strpos($urlRelativeToBaseUrl, 'https://') === 0) {
+        if (str_starts_with($urlRelativeToBaseUrl, 'http://') || str_starts_with($urlRelativeToBaseUrl, 'https://')) {
             return $urlRelativeToBaseUrl;
         }
 
@@ -212,13 +211,8 @@ if (! function_exists('phpb_full_url')) {
 if (! function_exists('phpb_url')) {
     /**
      * Give the full URL of a given public path.
-     *
-     * @param string $module
-     * @param array $parameters
-     * @param bool $fullUrl
-     * @return string
      */
-    function phpb_url($module, array $parameters = [], $fullUrl = true)
+    function phpb_url(string $module, array $parameters = [], bool $fullUrl = true): string
     {
         $url = $fullUrl ? phpb_full_url('') : '';
         $url .= phpb_config($module . '.url');
@@ -239,10 +233,8 @@ if (! function_exists('phpb_url')) {
 if (! function_exists('phpb_current_full_url')) {
     /**
      * Give the current full URL.
-     *
-     * @return string|null
      */
-    function phpb_current_full_url()
+    function phpb_current_full_url(): ?string
     {
         // return null when running form CLI
         if (! isset($_SERVER['SERVER_NAME']) || ! isset($_SERVER['REQUEST_URI'])) {
@@ -256,8 +248,7 @@ if (! function_exists('phpb_current_full_url')) {
         }
 
         $currentFullUrl = $protocol . "://" . $_SERVER['SERVER_NAME'] . $port . urldecode($_SERVER['REQUEST_URI']);
-        $currentFullUrl = rtrim($currentFullUrl, '/' . DIRECTORY_SEPARATOR);
-        return $currentFullUrl;
+        return rtrim($currentFullUrl, '/' . DIRECTORY_SEPARATOR);
     }
 }
 
@@ -265,10 +256,8 @@ if (! function_exists('phpb_current_relative_url')) {
     /**
      * Give the current URL relative to the base directory (the website's index.php entry point).
      * This omits any parent directories from the URL in which the project is installed.
-     *
-     * @return string
      */
-    function phpb_current_relative_url()
+    function phpb_current_relative_url(): string
     {
         $baseUrl = phpb_config('general.base_url');
         $baseUrl = rtrim($baseUrl, '/'. DIRECTORY_SEPARATOR);
@@ -283,17 +272,15 @@ if (! function_exists('phpb_current_relative_url')) {
 if (! function_exists('phpb_current_language')) {
     /**
      * Give the current language based on the current URL.
-     *
-     * @return string
      */
-    function phpb_current_language()
+    function phpb_current_language(): string
     {
         $urlComponents = explode('/', phpb_current_relative_url());
         // remove empty values and reset array key numbering
         $urlComponents = array_values(array_filter($urlComponents));
         if (! empty($urlComponents)) {
             foreach (phpb_active_languages() as $languageCode => $languageTranslation) {
-                if ($urlComponents[0] === $languageCode) {
+                if (explode('?', $urlComponents[0])[0] === $languageCode) {
                     return $languageCode;
                 }
             }
@@ -315,11 +302,8 @@ if (! function_exists('phpb_current_language')) {
 if (! function_exists('phpb_in_module')) {
     /**
      * Return whether we are currently accessing the given module.
-     *
-     * @param string $module
-     * @return bool
      */
-    function phpb_in_module($module)
+    function phpb_in_module(string $module): bool
     {
         $url = phpb_url($module, [], false);
         $currentUrl = explode('?', phpb_current_relative_url(), 2)[0];
@@ -330,10 +314,8 @@ if (! function_exists('phpb_in_module')) {
 if (! function_exists('phpb_themes')) {
     /**
      * Return all theme configs.
-     *
-     * @return array
      */
-    function phpb_themes()
+    function phpb_themes(): array
     {
         $themes = [];
 
@@ -356,12 +338,8 @@ if (! function_exists('phpb_themes')) {
 if (! function_exists('phpb_on_url')) {
     /**
      * Return whether we are currently on the given URL.
-     *
-     * @param string $module
-     * @param array $parameters
-     * @return bool
      */
-    function phpb_on_url($module, array $parameters = [])
+    function phpb_on_url(string $module, array $parameters = []): bool
     {
         $url = phpb_url($module, $parameters, false);
         return phpb_current_relative_url() === $url;
@@ -371,10 +349,8 @@ if (! function_exists('phpb_on_url')) {
 if (! function_exists('phpb_set_in_editmode')) {
     /**
      * Set whether the current page is being load in edit mode (i.e. inside the page builder).
-     *
-     * @param bool $inEditMode
      */
-    function phpb_set_in_editmode($inEditMode = true)
+    function phpb_set_in_editmode(bool $inEditMode = true): void
     {
         global $phpb_in_editmode;
 
@@ -385,10 +361,8 @@ if (! function_exists('phpb_set_in_editmode')) {
 if (! function_exists('phpb_in_editmode')) {
     /**
      * Return whether the current page is load in edit mode (i.e. inside the page builder).
-     *
-     * @return bool
      */
-    function phpb_in_editmode()
+    function phpb_in_editmode(): bool
     {
         global $phpb_in_editmode;
 
@@ -399,12 +373,8 @@ if (! function_exists('phpb_in_editmode')) {
 if (! function_exists('phpb_redirect')) {
     /**
      * Redirect to the given URL with optional session flash data.
-     *
-     * @param string $url
-     * @param array $flashData
-     * @param $statusCode
      */
-    function phpb_redirect($url, $flashData = [], $statusCode = 302)
+    #[NoReturn] function phpb_redirect(string $url, array $flashData = [], int $statusCode = 302): void
     {
         if (! empty($flashData)) {
             $_SESSION["phpb_flash"] = $flashData;
@@ -418,10 +388,8 @@ if (! function_exists('phpb_redirect')) {
 if (! function_exists('phpb_route_parameters')) {
     /**
      * Return the named route parameters resolved from the current URL.
-     *
-     * @return array|null
      */
-    function phpb_route_parameters()
+    function phpb_route_parameters(): ?array
     {
         global $phpb_route_parameters;
 
@@ -432,11 +400,8 @@ if (! function_exists('phpb_route_parameters')) {
 if (! function_exists('phpb_route_parameter')) {
     /**
      * Return the value of the given named route parameter resolved from the current URL.
-     *
-     * @param string $parameter
-     * @return string|null
      */
-    function phpb_route_parameter($parameter)
+    function phpb_route_parameter(string $parameter): ?string
     {
         global $phpb_route_parameters;
 
@@ -447,12 +412,8 @@ if (! function_exists('phpb_route_parameter')) {
 if (! function_exists('phpb_field_value')) {
     /**
      * Return the posted value or the attribute value of the given instance, or null if no value was found.
-     *
-     * @param $attribute
-     * @param object $instance
-     * @return string|null
      */
-    function phpb_field_value($attribute, $instance = null)
+    function phpb_field_value(string $attribute, object $instance = null): ?string
     {
         if (isset($_POST[$attribute])) {
             return phpb_encode_or_null($_POST[$attribute]);
@@ -471,10 +432,8 @@ if (! function_exists('phpb_field_value')) {
 if (! function_exists('phpb_active_languages')) {
     /**
      * Return the list of all active languages.
-     *
-     * @return array
      */
-    function phpb_active_languages()
+    function phpb_active_languages(): array
     {
         $configLanguageCode = phpb_config('general.language');
         $languages = phpb_instance('setting')::get('languages') ?? [$configLanguageCode];
@@ -511,7 +470,7 @@ if (! function_exists('phpb_instance')) {
      * @param array $params
      * @return object|null
      */
-    function phpb_instance(string $name, $params = [])
+    function phpb_instance(string $name, array $params = []): ?object
     {
         if (phpb_config($name . '.class')) {
             $className = phpb_config($name . '.class');
@@ -535,7 +494,7 @@ if (! function_exists('phpb_static')) {
      * @param string $name          the name of the config main section in which the class path is defined
      * @return object|string|null
      */
-    function phpb_static(string $name)
+    function phpb_static(string $name): object|string|null
     {
         if (phpb_config($name . '.class')) {
             return phpb_config($name . '.class');
@@ -553,12 +512,8 @@ if (! function_exists('phpb_static')) {
 if (! function_exists('phpb_slug')) {
     /**
      * Create a slug (safe URL or path) of the given string.
-     *
-     * @param string $text
-     * @param false $allowSlashes
-     * @return string
      */
-    function phpb_slug(string $text, $allowSlashes = false)
+    function phpb_slug(string $text, bool $allowSlashes = false): string
     {
         if ($allowSlashes) {
             return strtolower(trim(preg_replace('/[^A-Za-z0-9-\/]+/', '-', $text)));
@@ -571,10 +526,8 @@ if (! function_exists('phpb_slug')) {
 if (! function_exists('phpb_autoload')) {
     /**
      * Autoload classes from the Plugi package.
-     *
-     * @param  string $className
      */
-    function phpb_autoload($className)
+    function phpb_autoload(string $className): void
     {
         // PSR-0 autoloader
         $className = ltrim($className, '\\');
@@ -598,11 +551,9 @@ if (! function_exists('phpb_autoload')) {
 if (! function_exists('phpb_registered_assets')) {
     /**
      * Render all manually registered assets.
-     *
-     * @param $location
-     * @return void
      */
-    function phpb_registered_assets($location = 'header') {
+    function phpb_registered_assets(string $location = 'header'): void
+    {
         $assets = [];
         if($location === 'header'){
             $assets = Extensions::getHeaderAssets();
@@ -626,5 +577,29 @@ if (! function_exists('phpb_registered_assets')) {
                 echo '<script type="text/javascript" src="' . $asset['src'] . '" ' . $attributes . '></script>';
             }
         }
+    }
+}
+
+if (! function_exists('array_merge_recursive_ex')) {
+    /**
+     * Deep merging
+     */
+    function array_merge_recursive_ex(array $array1, array $array2): array
+    {
+        $merged = $array1;
+
+        foreach ($array2 as $key => $value) {
+            if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
+                $merged[$key] = array_merge_recursive_ex($merged[$key], $value);
+            } else if (is_numeric($key)) {
+                if (!in_array($value, $merged)) {
+                    $merged[] = $value;
+                }
+            } else {
+                $merged[$key] = $value;
+            }
+        }
+
+        return $merged;
     }
 }

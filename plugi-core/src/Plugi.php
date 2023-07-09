@@ -125,6 +125,17 @@ class Plugi
         if (file_exists($themeTranslationsFolder . '/' . $language . '.php')) {
             $phpb_translations = array_merge($phpb_translations, require $themeTranslationsFolder . '/' . $language . '.php');
         }
+
+        foreach (Extensions::getConfigs() as $ext => $extConfig) {
+            $extLanguageFile = $extConfig['dir'] . '/lang/' . $language . '.php';
+            if (! file_exists($extLanguageFile)) {
+                $extLanguageFile = $extConfig['dir'] . '/lang/en.php';
+            }
+            if (file_exists($extLanguageFile)) {
+                $phpb_translations = array_merge_recursive_ex($phpb_translations, require $extLanguageFile);
+            }
+        }
+
         return $phpb_translations;
     }
 
@@ -144,6 +155,7 @@ class Plugi
                 if ($entry->isDir() && ! $entry->isDot() && file_exists($extensionFile) && file_exists($configFile)) {
                     require $extensionFile;
                     $extConfig = include($configFile);
+                    $extConfig['dir'] = 'extensions/' . $extFolder;
                     $extKey = $extConfig['identifier'];
                     Extensions::registerConfig($extKey, $extConfig);
                     if(array_key_exists('assets', $extConfig) && is_array($extConfig['assets'])){
@@ -400,13 +412,13 @@ class Plugi
         // if we are on the URL of an upload, return uploaded file
         // (note: this is a fallback option used if .htaccess does not whitelist direct access to the /uploads folder.
         // allowing direct /uploads access via .htaccess is preferred since it gives faster loading time)
-        if (strpos(phpb_current_relative_url(), phpb_config('general.uploads_url') . '/') === 0) {
+        if (str_starts_with(phpb_current_relative_url(), phpb_config('general.uploads_url') . '/')) {
             $this->handleUploadedFileRequest();
             header("HTTP/1.1 404 Not Found");
             exit();
         }
         // if we are on the URL of a Plugi asset, return the asset
-        if (strpos(phpb_current_relative_url(), phpb_config('general.assets_url') . '/') === 0) {
+        if (str_starts_with(phpb_current_relative_url(), phpb_config('general.assets_url') . '/')) {
             $this->handlePageBuilderAssetRequest();
             header("HTTP/1.1 404 Not Found");
             exit();
@@ -454,8 +466,9 @@ class Plugi
         }
         // render page if resolved
         if ($page) {
+            // TODO add menu etc
             $renderedContent = $this->pageBuilder->renderPage($page, $pageTranslation->locale);
-            if (strpos($pageTranslation->route, '/*') === false) {
+            if (!str_contains($pageTranslation->route, '/*')) {
                 $this->cacheRenderedPage($renderedContent);
             }
             echo $renderedContent;

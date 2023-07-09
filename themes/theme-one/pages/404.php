@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="<?= phpb_current_language() ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"

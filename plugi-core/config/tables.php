@@ -16,6 +16,8 @@ return [
             'name' => 'varchar(255)',
             'layout' => 'varchar(255)',
             'data' => 'longtext',
+            'slug' => 'varchar(255)',
+            'parent_id' => 'int',
             'updated_at' => 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             'created_at' => 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP',
         ],

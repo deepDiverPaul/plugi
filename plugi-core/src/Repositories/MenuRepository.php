@@ -3,6 +3,7 @@
 namespace Plugi\Repositories;
 
 use Plugi\Contracts\MenuRepositoryContract;
+use Plugi\Contracts\PageTranslationContract;
 
 class MenuRepository extends BaseRepository implements MenuRepositoryContract
 {
@@ -34,6 +35,28 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract
     }
 
     /**
+     * Get one language switcher menu
+     *
+     * @return array|null
+     */
+    public function getLanguageMenu($id)
+    {
+        $menu = [];
+        $pageTranslationsRepo = new PageTranslationRepository();
+        $pageTranslations = $pageTranslationsRepo->findWhere('page_id', $id);
+        foreach ($pageTranslations as $pageTranslation) {
+            $langMenuPage = [
+                'id' => $id,
+                'title' => phpb_trans('languages.'.$pageTranslation->locale),
+                'lang' => $pageTranslation->locale,
+                'route' => $pageTranslation->route
+            ];
+            $menu[] = $langMenuPage;
+        }
+        return $menu;
+    }
+
+    /**
      * Get one hydrated menu with the given name.
      *
      * @param string $name
@@ -42,6 +65,7 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract
     public function getHydratedMenu(string $name)
     {
         $pageRepository = new PageRepository;
+        $pageTranslationsRepo = new PageTranslationRepository();
         $pages = $pageRepository->getAll();
         $menu = $this->findWhere('name', $name)[0];
         $menuPages = explode(',',$menu['pages']);
@@ -49,11 +73,19 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract
         foreach ($pages as $page) {
             $key = array_search($page->getId(), $menuPages);
             if($key === false) continue;
-            $hyMenuPages[$key] = [
+            $hyMenuPage = [
                 'id' => $page->getId(),
                 'title' => $page->getName(),
                 'route' => $page->getRoute()
             ];
+            $pageTranslations = $pageTranslationsRepo->findWhere('page_id', $page->getId());
+            foreach ($pageTranslations as $pageTranslation) {
+                if ($pageTranslation->locale !== phpb_current_language()) continue;
+                $hyMenuPage['route'] = $pageTranslation->route;
+                $hyMenuPage['title'] = $pageTranslation->title;
+            }
+
+            $hyMenuPages[$key] = $hyMenuPage;
         }
         ksort($hyMenuPages);
 
