@@ -41,8 +41,6 @@ return [
         'use_login' => true,
         'class' => Plugi\Modules\Auth\Auth::class,
         'url' => '/admin/auth',
-        'username' => 'admin',
-        'password' => 'admin'
     ],
 
     /*
