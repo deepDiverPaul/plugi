@@ -1,9 +1,13 @@
 <?php
-// Uncomment to disable error reporting
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+require_once __DIR__.'/plugi-core/src/Core/EnvLoader.php';
 
-// Uncomment if you downloaded Plugi
+(new Plugi\Core\EnvLoader())->load();
+
+if ($_ENV['STAGE'] !== 'production') {
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+}
+
 require_once __DIR__ . '/plugi-core/src/Core/helpers.php';
 spl_autoload_register('phpb_autoload');
 

@@ -196,6 +196,7 @@ ALTER TABLE `uploads`
 
 --
 -- Constraints der Tabelle `page_translations`
+-- TODO implement in sql loader
 --
 ALTER TABLE `page_translations`
   ADD CONSTRAINT `page_translations_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

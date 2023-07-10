@@ -82,6 +82,31 @@ use Plugi\Setting;
                 </ul>
             </td>
         </tr>
+        <tr>
+            <th class="align-top">Config</th>
+            <td x-data="{show: false}">
+                <div>
+                    <button @click="show = !show" class="btn btn-xs btn-outline" x-text="show ? 'hide' : 'show'"></button>
+                </div>
+                <pre class="mt-4" x-show="show"><?php
+print_r(phpb_config());
+                    ?></pre>
+            </td>
+        </tr>
+        <tr>
+            <th class="align-top">Environment</th>
+            <td x-data="{show: false}">
+                <div class="">
+                    <button @click="show = !show" class="btn btn-xs btn-outline" x-text="show ? 'hide' : 'show'"></button>
+                </div>
+                <pre class="mt-4" x-show="show"><?php
+print_r([
+        'STAGE'=>$_ENV['STAGE'],
+        'BASE_URL'=>$_ENV['BASE_URL']
+]);
+                    ?></pre>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

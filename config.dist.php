@@ -7,14 +7,11 @@ return [
      |--------------------------------------------------------------------------
      |
      | General settings for configuring the PageBuilder.
-     | If you install phpb with Composer, general.assets_url line must be:
-     | 'assets_url' => '/vendor/hansschouten/plugi/dist',
      |
      */
     'general' => [
-        'base_url' => 'http://localhost',
         'language' => 'en',
-        'assets_url' => '/assets',
+        'assets_url' => '/plugi-core/dist',
         'uploads_url' => '/uploads'
     ],
 
@@ -28,16 +25,6 @@ return [
      */
     'storage' => [
         'use_database' => true,
-        'database' => [
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => '',
-            'username'  => '',
-            'password'  => '',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-        ],
         'uploads_folder' => __DIR__ . '/uploads'
     ],
 
@@ -55,7 +42,7 @@ return [
         'class' => Plugi\Modules\Auth\Auth::class,
         'url' => '/admin/auth',
         'username' => 'admin',
-        'password' => 'changethispassword'
+        'password' => 'admin'
     ],
 
     /*
@@ -149,7 +136,7 @@ return [
         'class' => Plugi\Theme::class,
         'folder' => __DIR__ . '/themes',
         'folder_url' => '/themes',
-        'active_theme' => 'demo'
+        'active_theme' => 'theme-one'
     ],
 
     /*

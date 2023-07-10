@@ -45,7 +45,7 @@ class Plugi
     /**
      * Plugi constructor.
      *
-     * @param array|null $config         configuration in the format defined in config/config.example.php
+     * @param array|null $config         configuration in the format defined in config
      */
     public function __construct($config = [])
     {
@@ -72,7 +72,7 @@ class Plugi
 
         // create database connection, if enabled
         if (phpb_config('storage.use_database')) {
-            $this->setDatabaseConnection(phpb_config('storage.database'));
+            $this->setDatabaseConnection();
             $this->checkDatabaseDefinition();
             $this->hydrateConfig();
         }
@@ -132,7 +132,7 @@ class Plugi
                 $extLanguageFile = $extConfig['dir'] . '/lang/en.php';
             }
             if (file_exists($extLanguageFile)) {
-                $phpb_translations = array_merge_recursive_ex($phpb_translations, require $extLanguageFile);
+                $phpb_translations = phpb_array_merge_deep_array([$phpb_translations, require $extLanguageFile]);
             }
         }
 
@@ -194,13 +194,12 @@ class Plugi
     /**
      * Set the Plugi database connection using the given array.
      *
-     * @param array $config
      */
-    public function setDatabaseConnection(array $config)
+    public function setDatabaseConnection()
     {
         global $phpb_db;
         global $phpb_config;
-        $phpb_db = new DB($config);
+        $phpb_db = new DB();
         $theme = Setting::get('selected_theme');
         if ($theme) $phpb_config['theme']['active_theme'] = $theme;
         $language = Setting::get('admin_language');

@@ -55,16 +55,16 @@ $pageTranslations = $page ? $page->getTranslations() : [];
                     $firstLang = true;
                     foreach (phpb_active_languages() as $languageCode => $languageTranslation):
                     ?>
-                        <details class="collapse collapse-plus bg-base-200 mt-6" <?= phpb_e($firstLang ? 'open' : '') ?>>
+                        <details class="collapse collapse-plus bg-white mt-6" <?= phpb_e($firstLang ? 'open' : '') ?>>
                             <summary class="collapse-title text-xl font-medium"><?= phpb_trans('languages.' . $languageCode) ?></summary>
                             <div class="collapse-content">
-                                <div class="">
+                                <div x-data="{route: '<?= phpb_e($pageTranslations[$languageCode]['route'] ?? '') ?>', empty: true, locale: '<?= $firstLang ? '' : '/'.phpb_e($languageCode) ?>'}" x-init="empty = route.length === 0">
                                     <div class="form-control w-full mb-2">
                                         <label class="label" for="<?= phpb_e($languageCode) ?>-page-title">
                                             <span class="label-text"><?= phpb_trans('website-manager.page-title') ?></span>
                                             <span class="label-text-alt"><?= phpb_trans('website-manager.required') ?></span>
                                         </label>
-                                        <input type="text" class="input input-bordered w-full" id="<?= phpb_e($languageCode) ?>-page-title" name="title[<?= phpb_e($languageCode) ?>]" value="<?= phpb_e($pageTranslations[$languageCode]['title'] ?? '') ?>" required />
+                                        <input type="text" class="input input-bordered w-full" id="<?= phpb_e($languageCode) ?>-page-title" name="title[<?= phpb_e($languageCode) ?>]" value="<?= phpb_e($pageTranslations[$languageCode]['title'] ?? '') ?>" @input="if(empty){route=`${locale}/${slugify($event.target.value)}`}" required />
                                     </div>
 
                                     <div class="form-control w-full mb-2">
@@ -86,7 +86,13 @@ $pageTranslations = $page ? $page->getTranslations() : [];
                                             <span class="label-text"><?= phpb_trans('website-manager.route') ?></span>
                                             <span class="label-text-alt"><?= phpb_trans('website-manager.required') ?></span>
                                         </label>
-                                        <input type="text" class="input input-bordered w-full" id="<?= phpb_e($languageCode) ?>-page-route" name="route[<?= phpb_e($languageCode) ?>]" value="<?= phpb_e($pageTranslations[$languageCode]['route'] ?? '') ?>" required />
+                                        <div class="join" x-data="{disabled: true}">
+                                            <input type="text" class="input input-bordered join-item w-full" id="<?= phpb_e($languageCode) ?>-page-route" name="route[<?= phpb_e($languageCode) ?>]" :value="route" :disabled="disabled"  required />
+                                            <button class="btn join-item btn-outline text-2xl" @click.stop.prevent="disabled=!disabled" type="button" >
+                                                <i class="ph ph-pencil" x-show="disabled"></i>
+                                                <i class="ph ph-pencil-slash" x-show="!disabled"></i>
+                                            </button>
+                                        </div>
                                     </div>
 
                                 </div>

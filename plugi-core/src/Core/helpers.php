@@ -110,9 +110,13 @@ if (! function_exists('phpb_config')) {
      * @param string $key
      * @return mixed
      */
-    function phpb_config(string $key): mixed
+    function phpb_config(?string $key = null): mixed
     {
         global $phpb_config;
+
+        if (!isset($key)) {
+            return $phpb_config;
+        }
 
         // if no dot notation is used, return first dimension value or empty string
         if (!str_contains($key, '.')) {
@@ -203,7 +207,7 @@ if (! function_exists('phpb_full_url')) {
             return $urlRelativeToBaseUrl;
         }
 
-        $baseUrl = phpb_config('general.base_url');
+        $baseUrl = $_ENV['BASE_URL'];
         return rtrim($baseUrl, '/') . $urlRelativeToBaseUrl;
     }
 }
@@ -259,7 +263,7 @@ if (! function_exists('phpb_current_relative_url')) {
      */
     function phpb_current_relative_url(): string
     {
-        $baseUrl = phpb_config('general.base_url');
+        $baseUrl = $_ENV['BASE_URL'];
         $baseUrl = rtrim($baseUrl, '/'. DIRECTORY_SEPARATOR);
 
         $currentFullUrl = phpb_current_full_url();
@@ -523,6 +527,16 @@ if (! function_exists('phpb_slug')) {
     }
 }
 
+if (! function_exists('phpb_remove_non_alpha_numeric')) {
+    /**
+     * Create a slug (safe URL or path) of the given string.
+     */
+    function phpb_remove_non_alpha_numeric(string $string): array|string|null
+    {
+        return preg_replace('/\W*/', '', $string);
+    }
+}
+
 if (! function_exists('phpb_autoload')) {
     /**
      * Autoload classes from the Plugi package.
@@ -580,26 +594,32 @@ if (! function_exists('phpb_registered_assets')) {
     }
 }
 
-if (! function_exists('array_merge_recursive_ex')) {
+if (! function_exists('phpb_array_merge_deep_array')) {
     /**
      * Deep merging
      */
-    function array_merge_recursive_ex(array $array1, array $array2): array
-    {
-        $merged = $array1;
+    function phpb_array_merge_deep_array($arrays) {
+        $result = array();
+        foreach ($arrays as $array) {
+            foreach ($array as $key => $value) {
 
-        foreach ($array2 as $key => $value) {
-            if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
-                $merged[$key] = array_merge_recursive_ex($merged[$key], $value);
-            } else if (is_numeric($key)) {
-                if (!in_array($value, $merged)) {
-                    $merged[] = $value;
+                // Renumber integer keys as array_merge_recursive() does. Note that PHP
+                // automatically converts array keys that are integer strings (e.g., '1')
+                // to integers.
+                if (is_integer($key)) {
+                    $result[] = $value;
                 }
-            } else {
-                $merged[$key] = $value;
+                elseif (isset($result[$key]) && is_array($result[$key]) && is_array($value)) {
+                    $result[$key] = phpb_array_merge_deep_array(array(
+                        $result[$key],
+                        $value,
+                    ));
+                }
+                else {
+                    $result[$key] = $value;
+                }
             }
         }
-
-        return $merged;
+        return $result;
     }
 }

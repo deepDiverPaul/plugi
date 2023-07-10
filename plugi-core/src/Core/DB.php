@@ -4,9 +4,9 @@ namespace Plugi\Core;
 
 use Exception;
 use PDO;
+use PDOException;
 use Plugi\Extensions;
 use Plugi\Repositories\SettingRepository;
-use Plugi\Setting;
 
 /**
  * Class DB
@@ -20,22 +20,21 @@ class DB
     /**
      * @var PDO $pdo
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * DB constructor.
      *
-     * @param array $config
      */
-    public function __construct(array $config)
+    public function __construct()
     {
         $this->pdo = new PDO(
-            $config['driver'] . ':host=' . $config['host'] . ';dbname=' . $config['database'] . ";options='--client_encoding=" . $config['charset'] . "'",
-            $config['username'],
-            $config['password'],
+            $_ENV['DATABASE_DRIVER'] . ':host=' . $_ENV['DATABASE_HOST'] . ';dbname=' . $_ENV['DATABASE_DATABASE'] . ";options='--client_encoding=" . $_ENV['DATABASE_CHARSET'] . "'",
+            $_ENV['DATABASE_USERNAME'],
+            $_ENV['DATABASE_PASSWORD'],
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
         );
-        $this->pdo->exec("set names " . $config['charset']);
+        $this->pdo->exec("set names " . $_ENV['DATABASE_CHARSET']);
     }
 
     /**
@@ -43,7 +42,7 @@ class DB
      *
      * @return string
      */
-    public function lastInsertId()
+    public function lastInsertId(): string
     {
         return $this->pdo->lastInsertId();
     }
@@ -55,7 +54,7 @@ class DB
      * @param string $table
      * @return array
      */
-    public function all(string $table, $columns = '*')
+    public function all(string $table, array|string $columns = '*'): array
     {
         try {
             if (is_array($columns)) {
@@ -63,13 +62,13 @@ class DB
                     $column = preg_replace('/[^a-zA-Z_]*/', '', $column);
                 }
                 $columns = implode(',', $columns);
-                $stmt = $this->pdo->prepare("SELECT {$columns} FROM {$table}");
+                $stmt = $this->pdo->prepare("SELECT $columns FROM $table");
             } else {
-                $stmt = $this->pdo->prepare("SELECT * FROM {$table}");
+                $stmt = $this->pdo->prepare("SELECT * FROM $table");
             }
             $stmt->execute();
             return $stmt->fetchAll();
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             $_SESSION["phpb_flash"] = [
                 'message-type' => 'error',
                 'message' => phpb_trans('website-manager.check-database')
@@ -119,20 +118,23 @@ class DB
         return $stmt->execute($parameters);
     }
 
-    function tableExists($table) {
+    function tableExists(string $table): bool
+    {
+        $tableName = $_ENV['DATABASE_PREFIX'] . phpb_remove_non_alpha_numeric($table);
         try {
-            $this->pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+            $this->pdo->query("SELECT 1 FROM {$tableName} LIMIT 1");
             return true;
         } catch (Exception $e) {
             return false;
         }
     }
 
-    public function columnExists(string $table, string $column)
+    public function columnExists(string $table, string $column): bool
     {
+        $tableName = $_ENV['DATABASE_PREFIX'] . phpb_remove_non_alpha_numeric($table);
         // check if table with the name $table exists. if not, execute $query.'
         try {
-            $rs = $this->pdo->query("SELECT * FROM {$table} LIMIT 0");
+            $rs = $this->pdo->query("SELECT * FROM {$tableName} LIMIT 0");
             for ($i = 0; $i < $rs->columnCount(); $i++) {
                 $col = $rs->getColumnMeta($i);
                 $columns[] = $col['name'];
@@ -146,11 +148,12 @@ class DB
 
     public function uniqueKeyExists(string $table, string $key)
     {
+        $tableName = $_ENV['DATABASE_PREFIX'] . phpb_remove_non_alpha_numeric($table);
         // check if table with the name $table exists. if not, execute $query.'
         try {
             $keys = $this->select(
                 "SELECT CONSTRAINT_NAME FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = ? AND TABLE_SCHEMA = 'plugi' AND TABLE_NAME = ? AND CONSTRAINT_TYPE = 'UNIQUE'",
-                [$key, $table]
+                [$key, $tableName]
             );
             if (count($keys) === 1) return true;
             return false;
@@ -202,16 +205,17 @@ class DB
     public function resolveDiffDB() {
         $diff = $this->diffDB();
         foreach ($diff  as $table => $tableDiff) {
+            $tableName = $_ENV['DATABASE_PREFIX'] . phpb_remove_non_alpha_numeric($table);
             if($tableDiff === false){
-                $this->query("CREATE TABLE {$table} (`id` int NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3");
-                $this->query("ALTER TABLE {$table} ADD PRIMARY KEY (`id`)");
-                $this->query("ALTER TABLE {$table} MODIFY `id` int NOT NULL AUTO_INCREMENT");
+                $this->query("CREATE TABLE {$tableName} (`id` int NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3");
+                $this->query("ALTER TABLE {$tableName} ADD PRIMARY KEY (`id`)");
+                $this->query("ALTER TABLE {$tableName} MODIFY `id` int NOT NULL AUTO_INCREMENT");
             } elseif (is_array($tableDiff)) {
                 foreach ($tableDiff['columns'] as $column => $columnDefinition) {
-                    $this->query("ALTER TABLE {$table} ADD {$column} {$columnDefinition}");
+                    $this->query("ALTER TABLE {$tableName} ADD {$column} {$columnDefinition}");
                 }
                 foreach ($tableDiff['uniqueKeys'] as $key => $keyDefinition) {
-                    $this->query("ALTER TABLE {$table} ADD UNIQUE KEY {$key} ($keyDefinition)");
+                    $this->query("ALTER TABLE {$tableName} ADD UNIQUE KEY {$key} ($keyDefinition)");
                 }
             }
         }

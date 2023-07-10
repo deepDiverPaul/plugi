@@ -11,6 +11,8 @@ node_modules
 dist-ssr
 *.local
 
+.env
+
 cache
 uploads
 extensions/dev_*

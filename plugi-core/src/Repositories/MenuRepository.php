@@ -48,9 +48,11 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract
             $langMenuPage = [
                 'id' => $id,
                 'title' => phpb_trans('languages.'.$pageTranslation->locale),
-                'lang' => $pageTranslation->locale,
-                'route' => $pageTranslation->route
+                'locale' => $pageTranslation->locale,
+                'route' => $pageTranslation->route,
+                'selected' => false,
             ];
+            if (phpb_current_language() === $pageTranslation->locale) $langMenuPage['selected'] = true;
             $menu[] = $langMenuPage;
         }
         return $menu;
