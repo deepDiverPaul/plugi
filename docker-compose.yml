@@ -12,6 +12,14 @@ services:
       - mysql
     networks:
       - backend
+  adminer:
+    image: adminer
+    ports:
+      - 63001:8080
+    links:
+      - mysql
+    networks:
+      - backend
   mysql:
     image: "mysql:8.0"
     restart: 'always'

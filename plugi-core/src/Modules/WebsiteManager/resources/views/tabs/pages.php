@@ -26,10 +26,10 @@
 
             </td>
             <td class="actions">
-                <a href="<?= phpb_e(phpb_full_url($page->getRoute())) ?>" title="<?= phpb_trans('website-manager.view') ?>" target="_blank" class="btn btn-light btn-outline btn-sm btn-circle">
+                <a href="<?= phpb_e(phpb_full_url($page->getRoute())) ?>" title="<?= phpb_trans('website-manager.view') ?>" target="_blank" class="btn btn-light btn-outline btn-sm btn-circle <?= $page->get('type') === 'redirect' ? 'btn-disabled' : '' ?>">
                     <i class="text-xl ph-duotone ph-eye"></i>
                 </a>
-                <a href="<?= phpb_url('pagebuilder', ['page' => $page->getId()]) ?>" class="btn btn-primary hidden md:inline-flex btn-sm btn-circle" title="<?= phpb_trans('website-manager.edit') ?>">
+                <a href="<?= phpb_url('pagebuilder', ['page' => $page->getId()]) ?>" class="btn btn-primary hidden md:inline-flex btn-sm btn-circle <?= $page->get('type') === 'redirect' ? 'btn-disabled' : '' ?>" title="<?= phpb_trans('website-manager.edit') ?>">
                     <i class="text-xl ph-duotone ph-pencil-line"></i>
                 </a>
                 <a href="<?= phpb_url('website_manager', ['route' => 'page_settings', 'action' => 'edit', 'page' => $page->getId()]) ?>" title="<?= phpb_trans('website-manager.settings') ?>" class="btn btn-secondary btn-sm btn-circle">

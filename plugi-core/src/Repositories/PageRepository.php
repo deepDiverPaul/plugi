@@ -50,6 +50,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract
         $page = parent::create([
             'name' => $data['name'],
             'layout' => $data['layout'],
+            'type' => $data['type'],
         ]);
         if (! ($page instanceof PageContract)) {
             throw new Exception("Page not of type PageContract");
@@ -77,6 +78,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract
         $updateResult = parent::update($page, [
             'name' => $data['name'],
             'layout' => $data['layout'],
+            'type' => $data['type'],
         ]);
         $page->invalidateCache();
         return $updateResult;
@@ -92,7 +94,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract
     protected function replaceTranslations(PageContract $page, array $data)
     {
         $activeLanguages = phpb_active_languages();
-        foreach (['title', 'meta_title', 'meta_description', 'route'] as $field) {
+        foreach (['title', 'meta_title', 'meta_description', 'route', 'target'] as $field) {
             foreach ($activeLanguages as $languageCode => $languageTranslation) {
                 if (! isset($data[$field][$languageCode])) {
                     return false;
@@ -110,6 +112,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract
                 'meta_title' => $data['meta_title'][$languageCode],
                 'meta_description' => $data['meta_description'][$languageCode],
                 'route' => $data['route'][$languageCode],
+                'target' => $data['target'][$languageCode],
             ]);
         }
 

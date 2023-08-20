@@ -261,7 +261,7 @@ if (! function_exists('phpb_current_relative_url')) {
      * Give the current URL relative to the base directory (the website's index.php entry point).
      * This omits any parent directories from the URL in which the project is installed.
      */
-    function phpb_current_relative_url(): string
+    function phpb_current_relative_url($removeParameters = false): string
     {
         $baseUrl = $_ENV['BASE_URL'];
         $baseUrl = rtrim($baseUrl, '/'. DIRECTORY_SEPARATOR);
@@ -269,6 +269,9 @@ if (! function_exists('phpb_current_relative_url')) {
         $currentFullUrl = phpb_current_full_url();
         $relativeUrl = substr($currentFullUrl, strlen($baseUrl));
         $relativeUrl = ltrim($relativeUrl, '/'. DIRECTORY_SEPARATOR);
+        if($removeParameters) {
+            $relativeUrl = explode('?', $relativeUrl, 2)[0];
+        }
         return '/' . $relativeUrl;
     }
 }
@@ -537,6 +540,61 @@ if (! function_exists('phpb_remove_non_alpha_numeric')) {
     }
 }
 
+if (! function_exists('phpb_is_authenticated')) {
+    /**
+     * Create a slug (safe URL or path) of the given string.
+     */
+    function phpb_is_authenticated(): bool
+    {
+        $auth = new \Plugi\Modules\Auth\Auth();
+        return $auth->isAuthenticated();
+    }
+}
+
+if (! function_exists('phpb_requires_authenticated')) {
+    /**
+     * Create a slug (safe URL or path) of the given string.
+     */
+    function phpb_requires_authenticated(): void
+    {
+        if (!phpb_is_authenticated()) phpb_redirect('/', [], 403);
+    }
+}
+
+if (! function_exists('phpb_render_setting')) {
+    /**
+     * Create a slug (safe URL or path) of the given string.
+     */
+    function phpb_render_setting(array $setting): void
+    {
+        $label = phpb_e($setting['label'] ?: $setting['name']);
+        $key = phpb_e($setting['key']);
+        $value = phpb_e($setting['value']);
+        switch ($setting['type']) {
+            case 'toggle':
+                echo <<<EOL
+                    <div class="form-control" x-data="{state: $value}">
+                        <label class="label cursor-pointer">
+                            <span class="label-text">$label</span>
+                            <input type='hidden' :value="state" name="$key">
+                            <input type="checkbox" class="toggle" x-model="state"   />
+                        </label>
+                    </div>
+                EOL;
+
+            case 'text':
+                echo <<<EOL
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text">$label</span>
+                    </label>
+                    <input type="text" name="$key" value="$value" class="input input-bordered w-full" />
+                </div>
+                EOL;
+        }
+    }
+}
+
 if (! function_exists('phpb_autoload')) {
     /**
      * Autoload classes from the Plugi package.
@@ -545,6 +603,7 @@ if (! function_exists('phpb_autoload')) {
     {
         // PSR-0 autoloader
         $className = ltrim($className, '\\');
+        $isExtension = str_contains($className, 'Plugi\\Extensions\\');
         $fileName  = '';
         $namespace = '';
         if ($lastNsPos = strripos($className, '\\')) {
@@ -553,12 +612,22 @@ if (! function_exists('phpb_autoload')) {
             $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
         $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-
         // remove leading Plugi/ from the class path
         $fileName = str_replace('Plugi' . DIRECTORY_SEPARATOR, '', $fileName);
+        if ($isExtension) {
+            $fileName = str_replace('Extensions' . DIRECTORY_SEPARATOR, '', $fileName);
+            $fileFragments = explode(DIRECTORY_SEPARATOR, $fileName, 2);
+            $extensionName = strtolower($fileFragments[0]);
+            if (key_exists($extensionName, \Plugi\Extensions::getConfigs())) {
+                $dir = \Plugi\Extensions::getConfigs()[$extensionName]['dir'];
+                require $dir . '/admin/Classes/' . $fileFragments[1];
+            }
+        } else {
+            // include class files starting in the src directory
+            require __DIR__ . '/../' . $fileName;
+        }
 
-        // include class files starting in the src directory
-        require __DIR__ . '/../' . $fileName;
+
     }
 }
 

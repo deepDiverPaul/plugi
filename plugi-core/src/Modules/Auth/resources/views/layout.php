@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container p-4">
     <?php
     require  __DIR__ . '/' . $viewFile . '.php';
     ?>

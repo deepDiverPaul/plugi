@@ -43,10 +43,10 @@ class Extensions
     ];
 
     protected static $htmlBlocks = [
-        'head-end' => [],
+        'head' => [],
         'body-start' => [],
         'body-end' => [],
-        'admin-head-end' => [],
+        'admin-head' => [],
         'admin-body-start' => [],
         'admin-body-end' => [],
     ];
@@ -71,10 +71,8 @@ class Extensions
      * @param string $html
      * @param string $location
      */
-    public static function registerHtmlBlock(string $html, string $location = 'head-end') {
-        self::$assets[$location][] = [
-            'html' => $html,
-        ];
+    public static function registerHtmlBlock(string $html, string $location = 'head') {
+        self::$htmlBlocks[$location][] = $html;
     }
 
     /**
@@ -181,7 +179,7 @@ class Extensions
                 continue;
             }
             $setting['value'] = $settingIns::get($setting['key']) ?: $setting['default'];
-            $hydrSettings[] = $setting;
+            $hydrSettings[$setting['name']] = $setting;
         }
         return $hydrSettings;
     }
@@ -245,14 +243,16 @@ class Extensions
     /**
      * Get all header assets.
      */
-    public static function getHtmlBlocks(string $location = 'head-end') {
+    public static function getHtmlBlocks(string $location = 'head'): string
+    {
         return implode('', self::$htmlBlocks[$location]);
     }
 
     /**
      * Get all header assets.
      */
-    public static function getHeaderAssets() {
+    public static function getHeaderAssets(): array
+    {
         return self::$assets['header'];
     }
 

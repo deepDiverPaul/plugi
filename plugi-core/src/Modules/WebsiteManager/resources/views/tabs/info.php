@@ -68,7 +68,7 @@ use Plugi\Setting;
         </tr>
         <tr>
             <th class="align-top">Installed extensions</th>
-            <td>
+            <td x-data="{show: false}">
                 <ul>
                     <?php
                     foreach (\Plugi\Extensions::getConfigs() as $ext) :
@@ -80,6 +80,12 @@ use Plugi\Setting;
                     endforeach;
                     ?>
                 </ul>
+                <div>
+                    <button @click="show = !show" class="btn btn-xs btn-outline" x-text="show ? 'hide' : 'show config'"></button>
+                </div>
+                <pre class="mt-4" x-show="show"><?php
+print_r(\Plugi\Extensions::getConfigs());
+?></pre>
             </td>
         </tr>
         <tr>

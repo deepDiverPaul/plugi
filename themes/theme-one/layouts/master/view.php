@@ -1,5 +1,6 @@
 <?php
 
+use Plugi\Extensions;
 use Plugi\Repositories\MenuRepository;
 
 ?>
@@ -17,9 +18,12 @@ use Plugi\Repositories\MenuRepository;
     <link href="<?= phpb_asset('icons/bold/style.css') ?>" rel="stylesheet">
 
     <link href="<?= phpb_theme_asset('dist/style.css') ?>" rel="stylesheet">
+    <?= Extensions::getHtmlBlocks() ?>
+
 </head>
 
 <body>
+<?= Extensions::getHtmlBlocks('body-start') ?>
 
 <div class="navbar bg-base-100">
     <div class="navbar-start">
@@ -122,5 +126,7 @@ use Plugi\Repositories\MenuRepository;
         scriptTag.dispatchEvent(new Event('run-script'));
     });
 </script>
+<?= Extensions::getHtmlBlocks('body-end') ?>
+
 </body>
 </html>

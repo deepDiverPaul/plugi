@@ -15,15 +15,15 @@ if (isset($_GET['tab'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?= phpb_trans('website-manager.title') ?></title>
     <link rel="icon" href="/plugi-core/dist/images/logo-color.png">
-    <?= phpb_registered_assets('admin-header') ?>
+    <?php phpb_registered_assets('admin-header') ?>
     <link href="<?= phpb_asset('WebsiteManager.css') ?>" rel="stylesheet">
     <link href="<?= phpb_asset('icons/duotone/style.css') ?>" rel="stylesheet">
     <link href="<?= phpb_asset('icons/regular/style.css') ?>" rel="stylesheet">
     <link href="<?= phpb_asset('icons/bold/style.css') ?>" rel="stylesheet">
-    <?= Extensions::getHtmlBlocks('head-end') ?>
+    <?= Extensions::getHtmlBlocks('admin-head') ?>
 </head>
 <body>
-<?= Extensions::getHtmlBlocks('body-start') ?>
+<?= Extensions::getHtmlBlocks('admin-body-start') ?>
 
 <div class="drawer lg:drawer-open">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
@@ -90,6 +90,6 @@ if (isset($_GET['tab'])) {
 </div>
 
 <script src="<?= phpb_asset('WebsiteManager.js') ?>"></script>
-<?= Extensions::getHtmlBlocks('body-end') ?>
+<?= Extensions::getHtmlBlocks('admin-body-end') ?>
 </body>
 </html>

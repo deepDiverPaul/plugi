@@ -423,6 +423,13 @@ class Plugi
             exit();
         }
 
+        if(Extensions::getRoute(phpb_current_relative_url(true))){
+            $ext = include Extensions::getRoutes()[phpb_current_relative_url(true)];
+            if($ext !== 'continue'){
+                return true;
+            }
+        }
+
         // try to find page in cache
         $cache = phpb_instance('cache');
         if (phpb_config('cache.enabled') &&
@@ -434,13 +441,6 @@ class Plugi
             $cachedContent = $cache->getForUrl(phpb_current_relative_url());
             if ($cachedContent) {
                 echo $cachedContent;
-                return true;
-            }
-        }
-
-        if(Extensions::getRoute(phpb_current_relative_url())){
-            $ext = include Extensions::getRoutes()[phpb_current_relative_url()];
-            if($ext !== 'continue'){
                 return true;
             }
         }
@@ -465,6 +465,9 @@ class Plugi
         }
         // render page if resolved
         if ($page) {
+            if ($page->get('type') === 'redirect') {
+                phpb_redirect($pageTranslation->target);
+            }
             // TODO add menu etc
             $renderedContent = $this->pageBuilder->renderPage($page, $pageTranslation->locale);
             if (!str_contains($pageTranslation->route, '/*')) {

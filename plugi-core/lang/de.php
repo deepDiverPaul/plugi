@@ -32,7 +32,12 @@ return [
         'page-created' => 'Seite erstellt',
         'page-updated' => 'Seite aktualisiert',
         'page-deleted' => 'Seite gelöscht',
-
+        'page-type' => 'Seitentyp',
+        'page-types' => [
+            'static' => 'Statische Seite',
+            'redirect' => 'Weiterleitung',
+        ],
+        'target-redirect' => 'Ziel der Weiterleitung',
         'files' => 'Dateien',
         'settings' => 'Einstellungen',
         'info' => 'Info',
